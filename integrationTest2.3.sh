@@ -69,6 +69,9 @@ KPLUGINS="marvel shield sense timelion"
 # fix an issue in kibana if you install plugins as root before you've started kibana the first time
 chown kibana:kibana /opt/kibana/optimize/.babelcache.json
 
+# Create kibana user role
+cat kibanaRole.txt >> /etc/elasticsearch/shield/roles.yml
+
 echo "-- Configure Shield users/roles for Kibana and Marvel"
 /usr/share/elasticsearch/bin/shield/esusers useradd kibana4 -r kibana4_server -p notsecure
 /usr/share/elasticsearch/bin/shield/esusers useradd user -r kibana4 -p notsecure
