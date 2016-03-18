@@ -44,6 +44,16 @@ for i in $PRODUCTS; do echo "-- Installing $i*.deb" & dpkg -i ./$i*.deb; done
 # Install Platinum License?
 
 # Configure products
+# beats need authentication for elasticsearch
+sed -i 's/#username:.*/username: "admin"/' /etc/topbeat/topbeat.yml
+sed -i 's/#password:.*/password: "notsecure"/' /etc/topbeat/topbeat.yml
+
+sed -i 's/#username:.*/username: "admin"/' /etc/filebeat/filebeat.yml
+sed -i 's/#password:.*/password: "notsecure"/' /etc/filebeat/filebeat.yml
+
+sed -i 's/#username:.*/username: "admin"/' /etc/filebeat/filebeat.yml
+sed -i 's/#password:.*/password: "notsecure"/' /etc/filebeat/filebeat.yml
+
 
 # Install X-Plugins
 for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch/bin/plugin -Des.plugins.staging=true install -b $i; done
