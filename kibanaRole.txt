@@ -2,7 +2,7 @@ kibana:
   cluster:
       - monitor
   indices:
-    - names: 'logstash-*'
+    - names: '*'
       privileges:
         - view_index_metadata
         - read
