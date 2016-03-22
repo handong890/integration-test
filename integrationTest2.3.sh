@@ -63,6 +63,7 @@ for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch
 KPLUGINS="marvel shield sense timelion"
 /opt/kibana/bin/kibana plugin -i marvel -u https://download.elasticsearch.org/elasticsearch/marvel/marvel-2.3.0-SNAPSHOT.tar.gz
 /opt/kibana/bin/kibana plugin -i shield -u http://download.elastic.co/kibana/shield/shield-2.3.0-SNAPSHOT.tar.gz
+/opt/kibana/bin/kibana plugin -i shield -u https://download.elasticsearch.org/elasticsearch/graph/graphui-plugin-2.3.0-SNAPSHOT.tar.gz
 ## /opt/kibana/bin/kibana plugin -i elasticsearch/marvel
 /opt/kibana/bin/kibana plugin -i elastic/sense
 /opt/kibana/bin/kibana plugin -i elastic/timelion
