@@ -1,12 +1,12 @@
-kibana4:
+kibana:
   cluster:
       - monitor
   indices:
-    - names: '*'
+    - names: 'logstash-*'
       privileges:
         - view_index_metadata
         - read
-    - names: '.kibana'
+    - names: '.kibana*'
       privileges:
         - manage
         - read
