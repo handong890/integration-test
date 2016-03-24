@@ -19,7 +19,7 @@ XPLUGINS="license marvel-agent shield watcher graph"
 # Download latest packages
 
 # ELASTICSEARCH
-wget https://download.elasticsearch.org/elasticsearch/staging/2.3.0-88e7cba/org/elasticsearch/distribution/deb/elasticsearch/2.3.0/elasticsearch-2.3.0.deb
+wget https://download.elasticsearch.org/elasticsearch/staging/2.3.0-95de616/org/elasticsearch/distribution/deb/elasticsearch/2.3.0/elasticsearch-2.3.0.deb
 
 # KIBANA
 wget http://download.elasticsearch.org/kibana/kibana-snapshot/kibana_4.5.0-snapshot_amd64.deb
