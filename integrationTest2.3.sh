@@ -63,8 +63,8 @@ sed -i 's/#password:.*/password: "notsecure"/' /etc/packetbeat/packetbeat.yml
 
 
 # Install X-Plugins
-for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch/bin/plugin -Des.plugins.staging=true install -b $i; done
-#for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch/bin/plugin install -b $i; done
+#for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch/bin/plugin -Des.plugins.staging=true install -b $i; done
+for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch/bin/plugin install -b $i; done
 
 # Install Kibana UI Plugins
 KPLUGINS="marvel shield sense timelion"
