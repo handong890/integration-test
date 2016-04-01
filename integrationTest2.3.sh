@@ -123,9 +123,9 @@ ping -c 100 www.google.com >/dev/null &
 ./check.sh
 
 # load beats-dashboards
-cd ./beats-dashboards
+pushd ../beats-dashboards
 ./load.sh -url "http://localhost:9200" -user "admin:notsecure"
-cd ..
+popd
 
 ./kibana/node_modules/makelogs/bin/makelogs --auth admin:notsecure
 
