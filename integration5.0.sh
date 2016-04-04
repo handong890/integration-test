@@ -53,14 +53,14 @@ for i in $PRODUCTS; do echo "-- Installing $i*.deb" & dpkg -i ./$i*.deb; done
 
 # Configure products
 # beats need authentication for elasticsearch
-#sed -i 's/#username:.*/username: "admin"/' /etc/topbeat/topbeat.yml
-#sed -i 's/#password:.*/password: "notsecure"/' /etc/topbeat/topbeat.yml
+sed -i 's/#username:.*/username: "admin"/' /etc/topbeat/topbeat.yml
+sed -i 's/#password:.*/password: "notsecure"/' /etc/topbeat/topbeat.yml
 
-#sed -i 's/#username:.*/username: "admin"/' /etc/filebeat/filebeat.yml
-#sed -i 's/#password:.*/password: "notsecure"/' /etc/filebeat/filebeat.yml
+sed -i 's/#username:.*/username: "admin"/' /etc/filebeat/filebeat.yml
+sed -i 's/#password:.*/password: "notsecure"/' /etc/filebeat/filebeat.yml
 
-#sed -i 's/#username:.*/username: "admin"/' /etc/packetbeat/packetbeat.yml
-#sed -i 's/#password:.*/password: "notsecure"/' /etc/packetbeat/packetbeat.yml
+sed -i 's/#username:.*/username: "admin"/' /etc/packetbeat/packetbeat.yml
+sed -i 's/#password:.*/password: "notsecure"/' /etc/packetbeat/packetbeat.yml
 
 
 # Install X-Plugins  --------- Just XPACK ??
