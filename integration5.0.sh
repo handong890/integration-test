@@ -26,7 +26,8 @@ XPLUGINS="x-pack"
 # ELASTICSEARCH
 #wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha1-bf98a44/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha1/elasticsearch-5.0.0-alpha1.deb
 #http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/master/elasticsearch-latest-SNAPSHOT.zip
-wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha1-f27399d/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha1/elasticsearch-5.0.0-alpha1.deb
+#wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha1-f27399d/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha1/elasticsearch-5.0.0-alpha1.deb
+wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha1-7d4ed5b/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha1/elasticsearch-5.0.0-alpha1.deb
 
 # KIBANA
 wget http://download.elasticsearch.org/kibana/kibana-snapshot/kibana_5.0.0-snapshot_amd64.deb
@@ -65,6 +66,7 @@ for i in $PRODUCTS; do echo "-- Installing $i*.deb" & dpkg -i ./$i*.deb; done
 # Install X-Plugins  --------- Just XPACK ??
 #wget https://dl.dropboxusercontent.com/u/8469532/xpack-5.0.0-alpha1-snapshot.zip
 #/usr/share/elasticsearch/bin/elasticsearch-plugin install file:./xpack-5.0.0-alpha1-snapshot.zip
+/usr/share/elasticsearch/bin/elasticsearch-plugin install -b -Des.plugins.staging=true x-pack
 
 #/usr/share/elasticsearch/bin/elasticsearch-plugin -Des.plugins.staging=true install -b x-pack
 
@@ -76,8 +78,9 @@ KPLUGINS="marvel shield sense timelion"
 
 ## /opt/kibana/bin/kibana-plugin install elasticsearch/marvel
 #/opt/kibana/bin/kibana-plugin install elastic/sense
-/opt/kibana/bin/kibana-plugin install elastic/timelion
-
+#/opt/kibana/bin/kibana-plugin install elastic/timelion
+/opt/kibana/bin/kibana-plugin install https://download.elasticsearch.org/kibana/timelion/timelion-5.0.0-0.1.259.zip
+/opt/kibana/bin/kibana-plugin install http://download.elasticsearch.org/kibana/kibana/xpack-5.0.0-alpha1.zip
 # fix an issue in kibana if you install plugins as root before you've started kibana the first time
 chown kibana:kibana /opt/kibana/optimize/.babelcache.json
 
@@ -86,7 +89,7 @@ cat kibanaRole.txt >> /etc/elasticsearch/x-pack/roles.yml
 
 
 echo "-- Configure Shield users/roles for Kibana and Marvel"
-/usr/share/elasticsearch/bin/x-pack/users list 
+/usr/share/elasticsearch/bin/x-pack/users list
 /usr/share/elasticsearch/bin/x-pack/users useradd kibana4 -r kibana4_server -p notsecure
 /usr/share/elasticsearch/bin/x-pack/users useradd user -r kibana -p notsecure
 /usr/share/elasticsearch/bin/x-pack/users useradd admin -r admin -p notsecure
@@ -98,16 +101,16 @@ echo "-- Configure Shield users/roles for Kibana and Marvel"
 
 # curl put watcher trigger data?
 
-#echo "-- Configure Kibana with the Shield user"
-#export KIBANACONF=/opt/kibana/config/kibana.yml
-#cp $KIBANACONF ${KIBANACONF}.bck
-#echo elasticsearch.username: "kibana4" >> $KIBANACONF
-#echo elasticsearch.password: "notsecure" >> $KIBANACONF
-#echo shield.encryptionKey: "foo" >> $KIBANACONF
-#echo server.ssl.cert: /home/leedr/Desktop/server.crt >> $KIBANACONF
-#echo server.ssl.key: /home/leedr/Desktop/server.key >> $KIBANACONF
-#echo elasticsearch.ssl.ca: /home/leedr/Desktop/ca.zip >> $KIBANACONF
-#cp /home/leedr/Desktop/ca.zip /etc/elasticsearch/
+echo "-- Configure Kibana with the Shield user"
+export KIBANACONF=/opt/kibana/config/kibana.yml
+cp $KIBANACONF ${KIBANACONF}.bck
+echo elasticsearch.username: "kibana4" >> $KIBANACONF
+echo elasticsearch.password: "notsecure" >> $KIBANACONF
+echo xpack.security.encryptionKey: "foo" >> $KIBANACONF
+echo server.ssl.cert: /home/leedr/Desktop/server.crt >> $KIBANACONF
+echo server.ssl.key: /home/leedr/Desktop/server.key >> $KIBANACONF
+echo elasticsearch.ssl.ca: /home/leedr/Desktop/ca.zip >> $KIBANACONF
+cp /home/leedr/Desktop/ca.zip /etc/elasticsearch/
 
 # Start Services
 for i in $PRODUCTS; do echo "-- Starting $i" & service $i start; done
@@ -115,7 +118,7 @@ for i in $PRODUCTS; do echo "-- Starting $i" & service $i start; done
 ping -c 100 www.google.com >/dev/null &
 
 
-./check.sh
+./check5.0.sh
 
 # load beats-dashboards
 pushd ../beats-dashboards
@@ -123,7 +126,7 @@ git pull
 ./load.sh -url "http://localhost:9200" -user "admin:notsecure"
 popd
 
-#npm install -g makelogs@3.0.0-beta4
+npm install -g makelogs@3.0.0-beta4
 makelogs --auth admin:notsecure 
 
 
