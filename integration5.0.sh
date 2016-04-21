@@ -24,6 +24,7 @@ XPLUGINS="x-pack"
 # Download latest packages
 
 # ELASTICSEARCH
+# MASTER http://download.elasticsearch.org/elasticsearch/elasticsearch/elasticsearch-master.deb
 #wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha1-bf98a44/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha1/elasticsearch-5.0.0-alpha1.deb
 #http://s3-eu-west-1.amazonaws.com/build.eu-west-1.elastic.co/origin/master/elasticsearch-latest-SNAPSHOT.zip
 #wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha1-f27399d/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha1/elasticsearch-5.0.0-alpha1.deb
