@@ -22,12 +22,12 @@ for i in $PRODUCTS; do service $i status; done
 rm index.html*
 # try 10 times, 2 seconds apart
 echo -e "\n-----------------Elasticserach----------------------------------------"
-for i in `seq 1 10`; do echo "wget es index" && sleep 2 && wget -q --http-user=elastic --http-password=changeme http://localhost:9200 && break; done
+for i in `seq 1 20`; do echo "wget es index" && sleep 2 && wget -q --http-user=elastic --http-password=changeme http://localhost:9200 && break; done
 cat index.html
 
 echo -e "\n-----------------Kibana log-------------------------------------------"
 # try 10 times, 2 seconds apart
-for i in `seq 1 10`; do echo "grep kibana log for 'green'" && sleep 2 &&  journalctl -u kibana.service --since "5 minutes ago"| grep "plugin:elasticsearch.*green" && break; done
+for i in `seq 1 20`; do echo "grep kibana log for 'green'" && sleep 2 &&  journalctl -u kibana.service --since "5 minutes ago"| grep "plugin:elasticsearch.*green" && break; done
 #journalctl --since "2016-03-30"
 #journalctl -u kibana.service
 echo -e "\n----------------------------------------------------------------------"

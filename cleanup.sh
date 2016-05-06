@@ -11,7 +11,6 @@ fi
 
 PRODUCTS="packetbeat topbeat filebeat elasticsearch kibana logstash"
 
-XPLUGINS="license marvel-agent shield watcher"
 
 
 # Stop Services, Remove Services, Delete Packages 
@@ -34,5 +33,5 @@ rm -rf /var/lib/logstash
 
 rm -rf /var/log/kibana
 
-for i in $PRODUCTS; do echo "-- Deleting $i*.deb" & rm $i*.deb; done
+#for i in $PRODUCTS; do echo "-- Deleting $i*.deb" & rm $i*.deb; done
 
