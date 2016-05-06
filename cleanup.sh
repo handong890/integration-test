@@ -24,13 +24,15 @@ for i in $PRODUCTS; do echo "-- dpkg --purge $i" & dpkg --purge $i; done
 rm -rf /opt/kibana
 
 # Elasticsearch cleanup
+rm -rf /var/log/elasticsearch
 rm -rf /var/lib/elasticsearch
 rm -rf /etc/elasticsearch
 rm -rf /usr/share/elasticsearch
 
 rm -rf /var/log/logstash
+rm -rf /var/lib/logstash
+
 rm -rf /var/log/kibana
-rm -rf /var/log/elasticsearch
 
 for i in $PRODUCTS; do echo "-- Deleting $i*.deb" & rm $i*.deb; done
 

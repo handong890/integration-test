@@ -1,4 +1,4 @@
-kibana:
+kibanaUser:
   cluster:
       - monitor
   indices:
