@@ -14,7 +14,7 @@ if [[ $version < 1.8 ]]; then
   exit 1
 fi
 
-#./cleanup.sh
+./cleanup.sh
 
 PRODUCTS="packetbeat topbeat filebeat elasticsearch kibana logstash"
 ELASTICUSER=elastic
@@ -29,8 +29,10 @@ KIBANAFILEPWD=changeme
 NATIVEKIBANAUSER=ironman
 NATIVEKIBANAPWD=changeme
 
+LOGSTASHUSER=loggy
+LOGSTASHPWD=changeme
 
-# Download latest packages
+echo Download latest packages - see https://github.com/elastic/dev/issues/665
 
 # ELASTICSEARCH
 ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha2-e3126df/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha2/elasticsearch-5.0.0-alpha2.deb
@@ -77,9 +79,11 @@ sed -i "s/#password:.*/password: \"$ELASTICPWD\"/" /etc/packetbeat/packetbeat.ym
 
 
 # fix an issue in kibana if you install plugins as root before you've started kibana the first time
-#chown kibana:kibana /opt/kibana/optimize/.babelcache.json
-# T O   D O - resolve this issue
-chown -R kibana:kibana /opt/kibana
+# https://github.com/elastic/kibana/issues/6730
+chown kibana:kibana /opt/kibana/optimize/.babelcache.json
+# https://github.com/elastic/x-plugins/issues/2201
+chown -R kibana:kibana /opt/kibana/node_modules
+chown -R kibana:kibana /opt/kibana/installedPlugins
 
 # Create kibana user role
 cat kibanaRole.txt >> /etc/elasticsearch/x-pack/roles.yml
@@ -89,7 +93,7 @@ cat kibanaRole.txt >> /etc/elasticsearch/x-pack/roles.yml
 echo "-- Configure Shield users/roles for Kibana"
 /usr/share/elasticsearch/bin/x-pack/users useradd $KIBANAFILEUSER -r kibanaUser -p $KIBANAFILEPWD
 # create user for logstash to connect to Elasticsearch (used in logstash.conf
-/usr/share/elasticsearch/bin/x-pack/users useradd loggy -r logstash -p changeme
+/usr/share/elasticsearch/bin/x-pack/users useradd $LOGSTASHUSER -r logstash -p $LOGSTASHPWD
 # let logstash process read syslog
 setfacl -m u:logstash:r /var/log/syslog
 cp logstash.conf /etc/logstash/conf.d/
@@ -98,6 +102,9 @@ cp logstash.conf /etc/logstash/conf.d/
 
 # curl put watcher trigger data?
 
+ls server.crt || wget https://raw.githubusercontent.com/elastic/kibana/master/test/dev_certs/server.crt
+ls server.key || wget https://raw.githubusercontent.com/elastic/kibana/master/test/dev_certs/server.key
+ls ca.zip || zip ca.zip server.*
 echo "-- Configure Kibana with the Shield user"
 export KIBANACONF=/opt/kibana/config/kibana.yml
 cp $KIBANACONF ${KIBANACONF}.bck
@@ -106,10 +113,14 @@ cp $KIBANACONF ${KIBANACONF}.bck
 echo xpack.security.kibana.password: changeme >> $KIBANACONF
 echo xpack.security.encryptionKey: "foo" >> $KIBANACONF
 echo shield.encryptionKey: "foo" >> $KIBANACONF
-echo server.ssl.cert: /home/leedr/Desktop/server.crt >> $KIBANACONF
-echo server.ssl.key: /home/leedr/Desktop/server.key >> $KIBANACONF
-echo elasticsearch.ssl.ca: /home/leedr/Desktop/ca.zip >> $KIBANACONF
-cp /home/leedr/Desktop/ca.zip /etc/elasticsearch/
+cp ./server.* /opt/kibana/
+cp ./ca.zip /opt/kibana/
+cp ./server.* /etc/elasticsearch/
+cp ./ca.zip /etc/elasticsearch/
+echo server.ssl.cert: /opt/kibana/server.crt >> $KIBANACONF
+echo server.ssl.key: /opt/kibana/server.key >> $KIBANACONF
+echo elasticsearch.ssl.ca: /opt/kibana/ca.zip >> $KIBANACONF
+#cp /home/leedr/Desktop/ca.zip /etc/elasticsearch/
 
 
 
