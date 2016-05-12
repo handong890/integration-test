@@ -18,7 +18,7 @@ for i in $PRODUCTS; do echo "-- Stopping $i" & service $i stop; done
 
 # have to wait for services to stop or the uninstall will fail
 for i in `seq 1 20`; do sleep 2; service logstash status | tail -n1; service logstash status | grep Stopped && break; done
-
+kill -9 `pidof java`
 for i in $PRODUCTS; do echo "-- apt-get purge $i" & apt-get purge -y -q $i; done
 for i in $PRODUCTS; do echo "-- dpkg --purge $i" & dpkg --purge $i; done
 

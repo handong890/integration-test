@@ -16,12 +16,14 @@ PRODUCTS="packetbeat topbeat filebeat elasticsearch kibana logstash"
 XPLUGINS="license marvel-agent shield watcher graph"
 
 
+rm /etc/apt/sources.list.d/elastic.list
 
 wget -qO - https://packages.elastic.co/GPG-KEY-elasticsearch | sudo apt-key add -
-grep "packages.elastic.co/kibana/4.5"    /etc/apt/sources.list || echo "deb http://packages.elastic.co/kibana/4.5/debian stable main"        | sudo tee -a /etc/apt/sources.list
-grep "packages.elastic.co/elasticsearch" /etc/apt/sources.list || echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo tee -a /etc/apt/sources.list
-grep "packages.elastic.co/logstash"      /etc/apt/sources.list || echo "deb http://packages.elastic.co/logstash/2.3/debian stable main"      | sudo tee -a /etc/apt/sources.list
-grep "packages.elastic.co/beats"         /etc/apt/sources.list || echo "deb http://packages.elastic.co/beats/apt stable main"                | sudo tee -a /etc/apt/sources.list
+
+echo "deb http://download.elasticsearch.org/kibana/staging/4.5.1-2f869f1/repos/4.x/debian stable main"     | sudo tee -a /etc/apt/sources.list.d/elastic.list
+echo "deb http://packages.elastic.co/elasticsearch/2.x/debian stable main" | sudo tee -a /etc/apt/sources.list.d/elastic.list
+echo "deb http://packages.elastic.co/logstash/2.3/debian stable main"      | sudo tee -a /etc/apt/sources.list.d/elastic.list
+echo "deb http://packages.elastic.co/beats/apt stable main"                | sudo tee -a /etc/apt/sources.list.d/elastic.list
 
 apt-get update
 

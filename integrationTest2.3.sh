@@ -93,7 +93,7 @@ cat kibanaRole.txt >> /etc/elasticsearch/shield/roles.yml
 
 echo "-- Configure Shield users/roles for Kibana and Marvel"
 /usr/share/elasticsearch/bin/shield/esusers useradd kibana4 -r kibana4_server -p notsecure
-/usr/share/elasticsearch/bin/shield/esusers useradd user -r kibana -p notsecure
+/usr/share/elasticsearch/bin/shield/esusers useradd user -r kibanaUser -p notsecure
 /usr/share/elasticsearch/bin/shield/esusers useradd admin -r admin -p notsecure
 
 #/usr/share/elasticsearch/bin/shield/esusers useradd -r marvel_user -p marvel_user_password marvel_user_username
