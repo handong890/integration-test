@@ -27,7 +27,7 @@ echo "deb http://packages.elastic.co/beats/apt stable main"                | sud
 
 apt-get update
 
-for i in $PRODUCTS; do apt-get install $i; done
+for i in $PRODUCTS; do apt-get install $i || exit 1; done
 # right after we release a version we should test like this;
 # but after the next version comes out, we may need to test with something like this;
 #apt-get install elasticsearch-2.3.0
@@ -49,24 +49,24 @@ sed -i 's/#password:.*/password: "notsecure"/' /etc/packetbeat/packetbeat.yml
 
 
 # Install Elasticsearch X-Plugin 
-for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch/bin/plugin install -b $i; done
+for i in $XPLUGINS; do echo "-- Installing $i plugin" & /usr/share/elasticsearch/bin/plugin install -b $i || exit 1; done
 
 # Install Kibana UI Plugins
 KPLUGINS="elasticsearch/marvel elasticsearch/graph kibana/shield elastic/sense elastic/timelion"
-for i in $KPLUGINS; do /opt/kibana/bin/kibana plugin -i $i; done
+for i in $KPLUGINS; do /opt/kibana/bin/kibana plugin -i $i || exit 1; done
 
 # fix an issue in kibana if you install plugins as root before you've started kibana the first time
-chown kibana:kibana /opt/kibana/optimize/.babelcache.json
+chown kibana:kibana /opt/kibana/optimize/.babelcache.json || exit 1
 
 # Create kibana user role
-cat kibanaRole.txt >> /etc/elasticsearch/shield/roles.yml
+cat kibanaRole.txt >> /etc/elasticsearch/shield/roles.yml || exit 1
 
 
 
 echo "-- Configure Shield users/roles for Kibana and Marvel"
-/usr/share/elasticsearch/bin/shield/esusers useradd kibana4 -r kibana4_server -p notsecure
-/usr/share/elasticsearch/bin/shield/esusers useradd user -r kibanaUser -p notsecure
-/usr/share/elasticsearch/bin/shield/esusers useradd admin -r admin -p notsecure
+/usr/share/elasticsearch/bin/shield/esusers useradd kibana4 -r kibana4_server -p notsecure || exit 1
+/usr/share/elasticsearch/bin/shield/esusers useradd user -r kibanaUser -p notsecure || exit 1
+/usr/share/elasticsearch/bin/shield/esusers useradd admin -r admin -p notsecure || exit 1
 
 # curl put watcher config
 
@@ -84,7 +84,7 @@ echo elasticsearch.ssl.ca: /home/leedr/Desktop/ca.zip >> $KIBANACONF
 cp /home/leedr/Desktop/ca.zip /etc/elasticsearch/
 
 # Start Services
-for i in $PRODUCTS; do echo "-- Starting $i" & service $i start; done
+for i in $PRODUCTS; do echo "-- Starting $i" & service $i start || exit 1; done
 
 # Create some more noise for packetbeat
 ping -c 100 www.google.com >/dev/null &
@@ -97,5 +97,6 @@ pushd ../beats-dashboards
 ./load.sh -url "http://localhost:9200" -user "admin:notsecure"
 popd
 
-./kibana/node_modules/makelogs/bin/makelogs --auth admin:notsecure
+npm install -g makelogs@2.0.0
+makelogs --auth admin:notsecure
 
