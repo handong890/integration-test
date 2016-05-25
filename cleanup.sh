@@ -33,6 +33,7 @@ rm -rf /usr/share/elasticsearch
 
 rm -rf /var/log/logstash
 rm -rf /var/lib/logstash
+rm -rf /etc/logstash
 
 rm -rf /var/log/kibana
 
