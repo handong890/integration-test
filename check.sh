@@ -37,3 +37,4 @@ echo -e "\n-----------------Shield File Users-----------------------------------
 /usr/share/elasticsearch/bin/x-pack/users list
 echo -e "\n-----------------Shield Native Users-----------------------------------------"
 curl -XGET http://elastic:changeme@127.0.0.1:9200/_xpack/security/user?pretty
+curl -XGET http://elastic:changeme@127.0.0.1:9200/_xpack/security/role?pretty

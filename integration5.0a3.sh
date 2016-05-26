@@ -59,12 +59,18 @@ for i in $PRODUCTS; do echo "-- Installing $i*.deb" & dpkg -i ./$i*.deb || exit 
 
 # Configure products
 # beats need authentication for elasticsearch
+mv /etc/topbeat/topbeat.yml /etc/topbeat/topbeat.short.yml
+cp /etc/topbeat/topbeat.full.yml /etc/topbeat/topbeat.yml
 sed -i "s/#username:.*/username: \"$ELASTICUSER\"/" /etc/topbeat/topbeat.yml
 sed -i "s/#password:.*/password: \"$ELASTICPWD\"/" /etc/topbeat/topbeat.yml
 
+mv /etc/filebeat/filebeat.yml /etc/filebeat/filebeat.short.yml
+cp /etc/filebeat/filebeat.full.yml /etc/filebeat/filebeat.yml
 sed -i "s/#username:.*/username: \"$ELASTICUSER\"/" /etc/filebeat/filebeat.yml
 sed -i "s/#password:.*/password: \"$ELASTICPWD\"/" /etc/filebeat/filebeat.yml
 
+mv /etc/packetbeat/packetbeat.yml /etc/packetbeat/packetbeat.short.yml
+cp /etc/packetbeat/packetbeat.full.yml /etc/packetbeat/packetbeat.yml
 sed -i "s/#username:.*/username: \"$ELASTICUSER\"/" /etc/packetbeat/packetbeat.yml
 sed -i "s/#password:.*/password: \"$ELASTICPWD\"/" /etc/packetbeat/packetbeat.yml
 
@@ -110,7 +116,7 @@ export KIBANACONF=/opt/kibana/config/kibana.yml
 cp $KIBANACONF ${KIBANACONF}.bck
 #echo xpack.security.kibana.username: kibana  >> $KIBANACONF  # NOT ALLOWED
 #echo xpack.security.kibana.password: $KIBANASERVERPWD >> $KIBANACONF
-echo elasticsearch.password: changeme >> KIBANACONF
+echo elasticsearch.password: $KIBANASERVERPWD >> KIBANACONF
 echo xpack.security.encryptionKey: "foo" >> $KIBANACONF
 echo shield.encryptionKey: "foo" >> $KIBANACONF
 cp ./server.* /opt/kibana/ || exit 1
@@ -120,7 +126,6 @@ cp ./ca.zip /etc/elasticsearch/ || exit 1
 echo server.ssl.cert: /opt/kibana/server.crt >> $KIBANACONF
 echo server.ssl.key: /opt/kibana/server.key >> $KIBANACONF
 echo elasticsearch.ssl.ca: /opt/kibana/ca.zip >> $KIBANACONF
-#cp /home/leedr/Desktop/ca.zip /etc/elasticsearch/
 
 
 
@@ -157,6 +162,28 @@ curl -POST http://elastic:changeme@localhost:9200/_xpack/security/user/$NATIVEKI
     "intelligence" : 7
   }
 }'
+
+
+# {"cluster":["manage_security"],"indices":[],"run_as":[],"name":"testRole1"}{"cluster":["manage_security"],"indices":[],"run_as":[],"name":"testRole1"}
+# {"cluster":["manage_security"],"indices":[{"names":["packetbeat-*"],"privileges":["all"],"fields":[]}],"run_as":[],"name":"testRole2"}
+
+#curl -POST http://elastic:changeme@localhost:9200/_xpack/security/role/securityManagerRole -d '{
+#  "cluster": ["all"],
+#  "privileges": ["manage_security"],
+#  "indices": [
+#    {
+#      "names": [ "*-*" ],
+#      "privileges": ["view_index_metadata", "read"]
+#    },
+#    {
+#      "names": [ ".kibana" ],
+#      "privileges": ["manage", "read","index"]
+#    }
+#  ]
+#}'
+
+
+
 
 pushd /usr/share/topbeat/kibana/
 ./import_dashboards.sh -u $ELASTICUSER:$ELASTICPWD
