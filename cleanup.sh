@@ -9,7 +9,7 @@ if [ `grep DISTRIB_ID /etc/*-release | cut -d= -f2` != 'Ubuntu' ]; then
   exit 1
 fi
 
-PRODUCTS="packetbeat topbeat filebeat elasticsearch kibana logstash"
+PRODUCTS="packetbeat topbeat filebeat metricbeat elasticsearch kibana logstash"
 
 
 

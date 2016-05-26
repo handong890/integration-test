@@ -16,7 +16,7 @@ fi
 
 ./cleanup.sh
 
-PRODUCTS="packetbeat topbeat filebeat elasticsearch kibana logstash"
+PRODUCTS="packetbeat topbeat filebeat metricbeat elasticsearch kibana logstash"
 ELASTICUSER=elastic
 ELASTICPWD=changeme
 
@@ -35,7 +35,7 @@ LOGSTASHPWD=changeme
 echo Download latest packages - see https://github.com/elastic/dev/issues/665
 
 # ELASTICSEARCH
-ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha3-b3a8c54/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha3/elasticsearch-5.0.0-alpha3.deb || exit 1
+ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha3-cad959b/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha3/elasticsearch-5.0.0-alpha3.deb || exit 1
 
 # KIBANA
 ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-aa9a450/kibana/kibana_5.0.0-alpha3_amd64.deb || exit 1
@@ -52,13 +52,15 @@ ls topbeat*.deb || wget https://download.elastic.co/beats/topbeat/topbeat-5.0.0-
 # PACKETBEAT
 ls packetbeat*.deb || wget https://download.elastic.co/beats/packetbeat/packetbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb || exit 1
 
-# Install packages
+# METRICBEAT
+ls metricbeat*.deb || wget https://download.elastic.co/beats/metricbeat/metricbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb || exit 1
+
+echo Install packages
 for i in $PRODUCTS; do echo "-- Installing $i*.deb" & dpkg -i ./$i*.deb || exit 1; done
 
 # Install Platinum License?
 
-# Configure products
-# beats need authentication for elasticsearch
+echo Configure beats authenication
 mv /etc/topbeat/topbeat.yml /etc/topbeat/topbeat.short.yml
 cp /etc/topbeat/topbeat.full.yml /etc/topbeat/topbeat.yml
 sed -i "s/#username:.*/username: \"$ELASTICUSER\"/" /etc/topbeat/topbeat.yml
@@ -74,15 +76,18 @@ cp /etc/packetbeat/packetbeat.full.yml /etc/packetbeat/packetbeat.yml
 sed -i "s/#username:.*/username: \"$ELASTICUSER\"/" /etc/packetbeat/packetbeat.yml
 sed -i "s/#password:.*/password: \"$ELASTICPWD\"/" /etc/packetbeat/packetbeat.yml
 
+# we have a saved pre-configured yml for metricbeat (with only system metrics enabled)
+cp /etc/metricbeat/metricbeat.yml /etc/metricbeat/metricbeat.short.yml
+cp metricbeat.yml /etc/metricbeat/metricbeat.yml || exit 1
 
-# Install X-Plugins  --------- Just XPACK ??
+echo Install Elasticsearch X-Pack
 #/usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack
-ES_JAVA_OPTS="-Des.plugins.staging=true" /usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack || exit 1
+ES_JAVA_OPTS="-Des.plugins.staging=cad959b" /usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack || exit 1
 
-# Install Kibana UI Plugins
+echo Install Kibana UI Plugins
 /opt/kibana/bin/kibana-plugin install timelion || exit 1
 #/opt/kibana/bin/kibana-plugin install x-pack
-/opt/kibana/bin/kibana-plugin install https://download.elasticsearch.org/elasticsearch/staging/5.0.0-alpha3-b3a8c54/kibana/x-pack-5.0.0-alpha3.zip || exit 1
+/opt/kibana/bin/kibana-plugin install https://download.elasticsearch.org/elasticsearch/staging/5.0.0-alpha3-cad959b/kibana/x-pack-5.0.0-alpha3.zip || exit 1
 
 # fix an issue in kibana if you install plugins as root before you've started kibana the first time
 # https://github.com/elastic/kibana/issues/6730
@@ -145,6 +150,7 @@ service logstash start || exit 1
 service topbeat start || exit 1
 service filebeat start || exit 1
 service packetbeat start || exit 1
+service metricbeat start || exit 1
 
 
 
@@ -194,6 +200,10 @@ pushd /usr/share/filebeat/kibana/
 popd
 
 pushd /usr/share/packetbeat/kibana/
+./import_dashboards.sh -u $ELASTICUSER:$ELASTICPWD
+popd
+
+pushd /usr/share/metricbeat/kibana/
 ./import_dashboards.sh -u $ELASTICUSER:$ELASTICPWD
 popd
 
