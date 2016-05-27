@@ -41,7 +41,7 @@ ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5
 ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-b6190c9/kibana/kibana_5.0.0-alpha3_amd64.deb || exit 1
 
 # LOGSTASH
-ls logstash*.deb || wget https://download.elastic.co/logstash/logstash/logstash-5.0.0-alpha2.snapshot2_all.deb || exit 1
+ls logstash*.deb || wget https://download.elastic.co/logstash/logstash/logstash-5.0.0-alpha3.snapshot5.deb || exit 1
 
 # FILEBEAT
 ls filebeat*.deb || wget https://download.elastic.co/beats/filebeat/filebeat-5.0.0-alpha3-SNAPSHOT-amd64.deb || exit 1
