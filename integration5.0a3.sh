@@ -16,7 +16,7 @@ fi
 
 ./cleanup.sh
 
-PRODUCTS="packetbeat topbeat filebeat metricbeat elasticsearch kibana logstash"
+PRODUCTS="packetbeat filebeat metricbeat elasticsearch kibana logstash"
 ELASTICUSER=elastic
 ELASTICPWD=changeme
 
@@ -41,13 +41,10 @@ ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5
 ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-b6190c9/kibana/kibana_5.0.0-alpha3_amd64.deb || exit 1
 
 # LOGSTASH
-ls logstash*.deb || wget https://download.elastic.co/logstash/logstash/logstash-5.0.0-alpha3.snapshot5.deb || exit 1
+ls logstash*.deb || wget https://download.elastic.co/logstash/logstash/packages/debian/logstash-5.0.0-alpha3.deb || exit 1
 
 # FILEBEAT
 ls filebeat*.deb || wget https://download.elastic.co/beats/filebeat/filebeat-5.0.0-alpha3-SNAPSHOT-amd64.deb || exit 1
-
-# TOPBEAT
-ls topbeat*.deb || wget https://download.elastic.co/beats/topbeat/topbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb || exit 1
 
 # PACKETBEAT
 ls packetbeat*.deb || wget https://download.elastic.co/beats/packetbeat/packetbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb || exit 1
@@ -61,10 +58,6 @@ for i in $PRODUCTS; do echo "-- Installing $i*.deb" & dpkg -i ./$i*.deb || exit 
 # Install Platinum License?
 
 echo Configure beats authenication
-mv /etc/topbeat/topbeat.yml /etc/topbeat/topbeat.short.yml
-cp /etc/topbeat/topbeat.full.yml /etc/topbeat/topbeat.yml
-sed -i "s/#username:.*/username: \"$ELASTICUSER\"/" /etc/topbeat/topbeat.yml
-sed -i "s/#password:.*/password: \"$ELASTICPWD\"/" /etc/topbeat/topbeat.yml
 
 mv /etc/filebeat/filebeat.yml /etc/filebeat/filebeat.short.yml
 cp /etc/filebeat/filebeat.full.yml /etc/filebeat/filebeat.yml
@@ -147,7 +140,6 @@ for i in `seq 1 20`; do echo "wget es index" && sleep 2 && wget -q --http-user=e
 cat index.html
 service kibana start || exit 1
 service logstash start || exit 1
-service topbeat start || exit 1
 service filebeat start || exit 1
 service packetbeat start || exit 1
 service metricbeat start || exit 1
@@ -188,12 +180,6 @@ curl -POST http://elastic:changeme@localhost:9200/_xpack/security/user/$NATIVEKI
 #  ]
 #}'
 
-
-
-
-pushd /usr/share/topbeat/kibana/
-./import_dashboards.sh -u $ELASTICUSER:$ELASTICPWD
-popd
 
 pushd /usr/share/filebeat/kibana/
 ./import_dashboards.sh -u $ELASTICUSER:$ELASTICPWD
