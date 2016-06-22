@@ -1,0 +1,623 @@
+-- Stopping packetbeat
+-- Stopping topbeat
+-- Stopping filebeat
+-- Stopping metricbeat
+-- Stopping elasticsearch
+-- Stopping kibana
+-- Stopping logstash
+May 26 14:44:33 U14K systemd[1]: logstash.service: Failed with result 'exit-code'.
+May 26 14:44:33 U14K systemd[1]: Stopped LSB: Starts Logstash as a daemon..
+-- apt-get purge packetbeat
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdrm-amdgpu1 libllvm3.6v5 xfonts-mathml
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  packetbeat*
+0 upgraded, 0 newly installed, 1 to remove and 61 not upgraded.
+After this operation, 22.5 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 342723 files and directories currently installed.)
+Removing packetbeat (5.0.0-alpha3-SNAPSHOT) ...
+Purging configuration files for packetbeat (5.0.0-alpha3-SNAPSHOT) ...
+dpkg: warning: while removing packetbeat, directory '/etc/packetbeat' not empty so not removed
+-- apt-get purge topbeat
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdrm-amdgpu1 libllvm3.6v5 xfonts-mathml
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  topbeat*
+0 upgraded, 0 newly installed, 1 to remove and 61 not upgraded.
+After this operation, 15.8 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 342618 files and directories currently installed.)
+Removing topbeat (5.0.0-alpha3-SNAPSHOT) ...
+Purging configuration files for topbeat (5.0.0-alpha3-SNAPSHOT) ...
+dpkg: warning: while removing topbeat, directory '/etc/topbeat' not empty so not removed
+-- apt-get purge filebeat
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdrm-amdgpu1 libllvm3.6v5 xfonts-mathml
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  filebeat*
+0 upgraded, 0 newly installed, 1 to remove and 61 not upgraded.
+After this operation, 17.5 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 342577 files and directories currently installed.)
+Removing filebeat (5.0.0-alpha3-SNAPSHOT) ...
+Purging configuration files for filebeat (5.0.0-alpha3-SNAPSHOT) ...
+dpkg: warning: while removing filebeat, directory '/etc/filebeat' not empty so not removed
+-- apt-get purge metricbeat
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdrm-amdgpu1 libllvm3.6v5 xfonts-mathml
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  metricbeat*
+0 upgraded, 0 newly installed, 1 to remove and 61 not upgraded.
+After this operation, 17.2 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 342555 files and directories currently installed.)
+Removing metricbeat (5.0.0-alpha3-SNAPSHOT) ...
+Purging configuration files for metricbeat (5.0.0-alpha3-SNAPSHOT) ...
+dpkg: warning: while removing metricbeat, directory '/etc/metricbeat' not empty so not removed
+-- apt-get purge elasticsearch
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdrm-amdgpu1 libllvm3.6v5 xfonts-mathml
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  elasticsearch*
+0 upgraded, 0 newly installed, 1 to remove and 61 not upgraded.
+After this operation, 30.1 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 342526 files and directories currently installed.)
+Removing elasticsearch (5.0.0-alpha3) ...
+Stopping elasticsearch service... OK
+Deleting log directory... OK
+Deleting plugins directory... OK
+Purging configuration files for elasticsearch (5.0.0-alpha3) ...
+dpkg: warning: while removing elasticsearch, directory '/var/lib/elasticsearch' not empty so not removed
+dpkg: warning: while removing elasticsearch, directory '/etc/elasticsearch' not empty so not removed
+dpkg: warning: while removing elasticsearch, directory '/usr/share/elasticsearch/bin' not empty so not removed
+-- apt-get purge kibana
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdrm-amdgpu1 libllvm3.6v5 xfonts-mathml
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  kibana*
+0 upgraded, 0 newly installed, 1 to remove and 61 not upgraded.
+After this operation, 133 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 342427 files and directories currently installed.)
+Removing kibana (5.0.0-alpha3) ...
+Purging configuration files for kibana (5.0.0-alpha3) ...
+dpkg: warning: while removing kibana, directory '/opt/kibana/optimize/bundles' not empty so not removed
+dpkg: warning: while removing kibana, directory '/opt/kibana/installedPlugins' not empty so not removed
+dpkg: warning: while removing kibana, directory '/opt/kibana/config' not empty so not removed
+-- apt-get purge logstash
+Reading package lists...
+Building dependency tree...
+Reading state information...
+The following packages were automatically installed and are no longer required:
+  libdrm-amdgpu1 libllvm3.6v5 xfonts-mathml
+Use 'apt-get autoremove' to remove them.
+The following packages will be REMOVED:
+  logstash*
+0 upgraded, 0 newly installed, 1 to remove and 61 not upgraded.
+After this operation, 143 MB disk space will be freed.
+(Reading database ... (Reading database ... 5%(Reading database ... 10%(Reading database ... 15%(Reading database ... 20%(Reading database ... 25%(Reading database ... 30%(Reading database ... 35%(Reading database ... 40%(Reading database ... 45%(Reading database ... 50%(Reading database ... 55%(Reading database ... 60%(Reading database ... 65%(Reading database ... 70%(Reading database ... 75%(Reading database ... 80%(Reading database ... 85%(Reading database ... 90%(Reading database ... 95%(Reading database ... 100%(Reading database ... 324798 files and directories currently installed.)
+Removing logstash (1:5.0.0~alpha2~snapshot2-1) ...
+Purging configuration files for logstash (1:5.0.0~alpha2~snapshot2-1) ...
+dpkg: warning: while removing logstash, directory '/etc/logstash/conf.d' not empty so not removed
+dpkg: warning: while removing logstash, directory '/var/lib/logstash' not empty so not removed
+dpkg: warning: while removing logstash, directory '/var/log/logstash' not empty so not removed
+-- dpkg --purge packetbeat
+-- dpkg --purge topbeat
+-- dpkg --purge filebeat
+-- dpkg --purge metricbeat
+-- dpkg --purge elasticsearch
+-- dpkg --purge kibana
+-- dpkg --purge logstash
+Download latest packages - see https://github.com/elastic/dev/issues/665
+elasticsearch-5.0.0-alpha3.deb
+logstash-5.0.0-alpha2.snapshot2_all.deb
+filebeat-5.0.0-alpha3-SNAPSHOT-amd64.deb
+topbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb
+packetbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb
+metricbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb
+Install packages
+-- Installing packetbeat*.deb
+Selecting previously unselected package packetbeat.
+(Reading database ... 312222 files and directories currently installed.)
+Preparing to unpack .../packetbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb ...
+Unpacking packetbeat (5.0.0-alpha3-SNAPSHOT) ...
+Setting up packetbeat (5.0.0-alpha3-SNAPSHOT) ...
+Processing triggers for systemd (225-1ubuntu9.1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+-- Installing topbeat*.deb
+Selecting previously unselected package topbeat.
+(Reading database ... 312327 files and directories currently installed.)
+Preparing to unpack .../topbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb ...
+Unpacking topbeat (5.0.0-alpha3-SNAPSHOT) ...
+Setting up topbeat (5.0.0-alpha3-SNAPSHOT) ...
+Processing triggers for systemd (225-1ubuntu9.1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+-- Installing filebeat*.deb
+Selecting previously unselected package filebeat.
+(Reading database ... 312368 files and directories currently installed.)
+Preparing to unpack .../filebeat-5.0.0-alpha3-SNAPSHOT-amd64.deb ...
+Unpacking filebeat (5.0.0-alpha3-SNAPSHOT) ...
+Setting up filebeat (5.0.0-alpha3-SNAPSHOT) ...
+Processing triggers for systemd (225-1ubuntu9.1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+-- Installing metricbeat*.deb
+Selecting previously unselected package metricbeat.
+(Reading database ... 312390 files and directories currently installed.)
+Preparing to unpack .../metricbeat-5.0.0-alpha3-SNAPSHOT-amd64.deb ...
+Unpacking metricbeat (5.0.0-alpha3-SNAPSHOT) ...
+Setting up metricbeat (5.0.0-alpha3-SNAPSHOT) ...
+Processing triggers for systemd (225-1ubuntu9.1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+-- Installing elasticsearch*.deb
+Selecting previously unselected package elasticsearch.
+(Reading database ... 312419 files and directories currently installed.)
+Preparing to unpack .../elasticsearch-5.0.0-alpha3.deb ...
+Creating elasticsearch group... OK
+Creating elasticsearch user... OK
+Unpacking elasticsearch (5.0.0-alpha3) ...
+Setting up elasticsearch (5.0.0-alpha3) ...
+Processing triggers for systemd (225-1ubuntu9.1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+-- Installing kibana*.deb
+Selecting previously unselected package kibana.
+(Reading database ... 312518 files and directories currently installed.)
+Preparing to unpack .../kibana_5.0.0-alpha3_amd64.deb ...
+Unpacking kibana (5.0.0-alpha3) ...
+Setting up kibana (5.0.0-alpha3) ...
+Processing triggers for systemd (225-1ubuntu9.1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+-- Installing logstash*.deb
+Selecting previously unselected package logstash.
+(Reading database ... 330145 files and directories currently installed.)
+Preparing to unpack .../logstash-5.0.0-alpha2.snapshot2_all.deb ...
+Unpacking logstash (1:5.0.0~alpha2~snapshot2-1) ...
+Setting up logstash (1:5.0.0~alpha2~snapshot2-1) ...
+Processing triggers for systemd (225-1ubuntu9.1) ...
+Processing triggers for ureadahead (0.100.0-19) ...
+Configure beats authenication
+Install Elasticsearch X-Pack
+-> Downloading x-pack from elastic
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+@     WARNING: plugin requires additional permissions     @
+@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+* java.lang.RuntimePermission accessClassInPackage.com.sun.activation.registries
+* java.lang.RuntimePermission getClassLoader
+* java.lang.RuntimePermission setContextClassLoader
+* java.lang.RuntimePermission setFactory
+* java.security.SecurityPermission putProviderProperty.BC
+* java.util.PropertyPermission * read,write
+* javax.net.ssl.SSLPermission setHostnameVerifier
+See http://docs.oracle.com/javase/8/docs/technotes/guides/security/permissions.html
+for descriptions of what these permissions allow and the associated risks.
+-> Installed x-pack
+Install Kibana UI Plugins
+Attempting to transfer from timelion
+Attempting to transfer from https://download.elastic.co/kibana/timelion/timelion-5.0.0-alpha3.zip
+Transferring 5281816 bytes....................
+Transfer complete
+Retrieving metadata from plugin archive
+Extracting plugin archive
+Extraction complete
+Optimizing and caching browser bundles...
+Plugin installation complete
+Attempting to transfer from https://download.elasticsearch.org/elasticsearch/staging/5.0.0-alpha3-cad959b/kibana/x-pack-5.0.0-alpha3.zip
+Transferring 59017080 bytes....................
+Transfer complete
+Retrieving metadata from plugin archive
+Extracting plugin archive
+Extraction complete
+Optimizing and caching browser bundles...
+Plugin installation complete
+-- Configure Shield users/roles for Kibana
+server.crt
+server.key
+ca.zip
+-- Configure Kibana with the Shield user
+
+-----------------Elasticserach----------------------------------------
+wget es index
+wget es index
+wget es index
+wget es index
+wget es index
+wget es index
+{
+  "name" : "Plantman",
+  "cluster_name" : "elasticsearch",
+  "version" : {
+    "number" : "5.0.0-alpha3",
+    "build_hash" : "cad959b",
+    "build_date" : "2016-05-26T08:25:57.564Z",
+    "build_snapshot" : false,
+    "lucene_version" : "6.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+
+-----------------Package Information----------------------------------
+Desired=Unknown/Install/Remove/Purge/Hold
+| Status=Not/Inst/Conf-files/Unpacked/halF-conf/Half-inst/trig-aWait/Trig-pend
+|/ Err?=(none)/Reinst-required (Status,Err: uppercase=bad)
+||/ Name           Version                    Architecture Description
++++-==============-==========================-============-======================================================================================================================================================================================================================================================================================================================================
+ii  elasticsearch  5.0.0-alpha3               all          Elasticsearch is a distributed RESTful search engine built for the cloud. Reference documentation can be found at https://www.elastic.co/guide/en/elasticsearch/reference/current/index.html and the 'Elasticsearch: The Definitive Guide' book can be found at https://www.elastic.co/guide/en/elasticsearch/guide/current/index.html
+ii  filebeat       5.0.0-alpha3-SNAPSHOT      amd64        Sends log files to Logstash or directly to Elasticsearch.
+ii  kibana         5.0.0-alpha3               amd64        Explore and visualize your Elasticsearch data.
+ii  logstash       1:5.0.0~alpha2~snapshot2-1 all          An extensible logging pipeline
+ii  packetbeat     5.0.0-alpha3-SNAPSHOT      amd64        A network analyzer tool that sends data to Elasticsearch.
+ii  topbeat        5.0.0-alpha3-SNAPSHOT      amd64        Like the top command but outputing periodically Logstash, Elasticsearch or file
+
+-----------------Service Status---------------------------------------
+● packetbeat.service - packetbeat
+   Loaded: loaded (/lib/systemd/system/packetbeat.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2016-05-26 14:51:44 CDT; 509ms ago
+     Docs: https://www.elastic.co/guide/en/beats/packetbeat/current/index.html
+ Main PID: 6349 (packetbeat)
+   CGroup: /system.slice/packetbeat.service
+           └─6349 /usr/share/packetbeat/bin/packetbeat -c /etc/packetbeat/packetbeat.yml -path.home /usr/share/packetbeat -path.config /etc/packetbeat -path.data /var/lib/packetbeat -path.logs /var/log/packetbeat
+
+May 26 14:51:44 U14K systemd[1]: Started packetbeat.
+● topbeat.service - topbeat
+   Loaded: loaded (/lib/systemd/system/topbeat.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2016-05-26 14:51:43 CDT; 1s ago
+     Docs: https://www.elastic.co/guide/en/beats/topbeat/current/index.html
+ Main PID: 6276 (topbeat)
+   CGroup: /system.slice/topbeat.service
+           └─6276 /usr/share/topbeat/bin/topbeat -c /etc/topbeat/topbeat.yml -path.home /usr/share/topbeat -path.config /etc/topbeat -path.data /var/lib/topbeat -path.logs /var/log/topbeat
+
+May 26 14:51:43 U14K systemd[1]: Started topbeat.
+● filebeat.service - filebeat
+   Loaded: loaded (/lib/systemd/system/filebeat.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2016-05-26 14:51:43 CDT; 981ms ago
+     Docs: https://www.elastic.co/guide/en/beats/filebeat/current/index.html
+ Main PID: 6313 (filebeat)
+   CGroup: /system.slice/filebeat.service
+           └─6313 /usr/share/filebeat/bin/filebeat -c /etc/filebeat/filebeat.yml -path.home /usr/share/filebeat -path.config /etc/filebeat -path.data /var/lib/filebeat -path.logs /var/log/filebeat
+
+May 26 14:51:43 U14K systemd[1]: Started filebeat.
+● elasticsearch.service - Elasticsearch
+   Loaded: loaded (/usr/lib/systemd/system/elasticsearch.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2016-05-26 14:51:29 CDT; 14s ago
+     Docs: http://www.elastic.co
+  Process: 6044 ExecStartPre=/usr/share/elasticsearch/bin/elasticsearch-systemd-pre-exec (code=exited, status=0/SUCCESS)
+ Main PID: 6047 (java)
+   CGroup: /system.slice/elasticsearch.service
+           └─6047 /usr/bin/java -Xms256m -Xmx2g -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+DisableExplicitGC -XX:+AlwaysPreTouch -server -Djava.awt.headless=true -Dfile.encoding=UTF-8 -Djna.nosys=true -XX:+HeapDumpOnOutOfMemoryError -Des.path.home=/usr/share/elasticsearch -cp /usr/share/elasticsearch/lib/elasticsearch-5.0.0-alpha3.jar:/usr/share/elasticsearch/lib/* org.elasticsearch.bootstrap.Elasticsearch -p /var/run/elasticsearch/elasticsearch.pid -Edefault.path.logs=/var/log/elasticsearch -Edefault.path.data=/var/lib/elasticsearch -Edefault.path.conf=/etc/elasticsearch
+
+May 26 14:51:35 U14K elasticsearch[6047]: [2016-05-26 14:51:35,565][WARN ][shield.transport         ] [Plantman] registered two transport handlers for action cluster:monitor/xpack/info, handlers: org.elasticsearch.shield.transport.ShieldServerTransportService$ProfileSecuredRequestHandler@580ffea, org.elasticsearch.shield.transport.ShieldServerTransportService$ProfileSecuredRequestHandler@191e654
+May 26 14:51:35 U14K elasticsearch[6047]: [2016-05-26 14:51:35,657][INFO ][node                     ] [Plantman] initialized
+May 26 14:51:35 U14K elasticsearch[6047]: [2016-05-26 14:51:35,657][INFO ][node                     ] [Plantman] starting ...
+May 26 14:51:36 U14K elasticsearch[6047]: [2016-05-26 14:51:36,207][INFO ][shield.transport         ] [Plantman] publish_address {127.0.0.1:9300}, bound_addresses {[::1]:9300}, {127.0.0.1:9300}
+May 26 14:51:36 U14K elasticsearch[6047]: [2016-05-26 14:51:36,216][WARN ][bootstrap                ] [Plantman] initial heap size [268435456] not equal to maximum heap size [2147483648]; this can cause resize pauses and prevents mlockall from locking the entire heap
+May 26 14:51:36 U14K elasticsearch[6047]: [2016-05-26 14:51:36,216][WARN ][bootstrap                ] [Plantman] please set [discovery.zen.minimum_master_nodes] to a majority of the number of master eligible nodes in your cluster
+May 26 14:51:39 U14K elasticsearch[6047]: [2016-05-26 14:51:39,422][INFO ][cluster.service          ] [Plantman] new_master {Plantman}{Rm1ssZFgRD6HG98H3dEeMg}{127.0.0.1}{127.0.0.1:9300}, reason: zen-disco-join(elected_as_master, [0] joins received)
+May 26 14:51:39 U14K elasticsearch[6047]: [2016-05-26 14:51:39,512][INFO ][http                     ] [Plantman] publish_address {127.0.0.1:9200}, bound_addresses {[::1]:9200}, {127.0.0.1:9200}
+May 26 14:51:39 U14K elasticsearch[6047]: [2016-05-26 14:51:39,513][INFO ][node                     ] [Plantman] started
+May 26 14:51:39 U14K elasticsearch[6047]: [2016-05-26 14:51:39,786][INFO ][gateway                  ] [Plantman] recovered [0] indices into cluster_state
+● kibana.service - no description given
+   Loaded: loaded (/lib/systemd/system/kibana.service; disabled; vendor preset: enabled)
+   Active: active (running) since Thu 2016-05-26 14:51:42 CDT; 2s ago
+ Main PID: 6177 (node)
+   CGroup: /system.slice/kibana.service
+           └─6177 /opt/kibana/bin/../node/bin/node /opt/kibana/bin/../src/cli
+
+May 26 14:51:42 U14K systemd[1]: Started no description given.
+● logstash.service - LSB: Starts Logstash as a daemon.
+   Loaded: loaded (/etc/init.d/logstash)
+   Active: active (running) since Thu 2016-05-26 14:51:42 CDT; 1s ago
+     Docs: man:systemd-sysv-generator(8)
+  Process: 6211 ExecStart=/etc/init.d/logstash start (code=exited, status=0/SUCCESS)
+   CGroup: /system.slice/logstash.service
+           └─6218 /usr/bin/java -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -Djava.awt.headless=true -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+HeapDumpOnOutOfMemoryError -Djava.io.tmpdir=/var/lib/logstash -Xmx1g -Xss2048k -Djffi.boot.library.path=/opt/logstash/vendor/jruby/lib/jni -XX:+UseParNewGC -XX:+UseConcMarkSweepGC -Djava.awt.headless=true -XX:CMSInitiatingOccupancyFraction=75 -XX:+UseCMSInitiatingOccupancyOnly -XX:+HeapDumpOnOutOfMemoryError -Djava.io.tmpdir=/var/lib/logstash -XX:HeapDumpPath=/opt/logstash/heapdump.hprof -Xbootclasspath/a:/opt/logstash/vendor/jruby/lib/jruby.jar -classpath : -Djruby.home=/opt/logstash/vendor/jruby -Djruby.lib=/opt/logstash/vendor/jruby/lib -Djruby.script=jruby -Djruby.shell=/bin/sh org.jruby.Main --1.9 /opt/logstash/lib/bootstrap/environment.rb logstash/runner.rb -f /etc/logstash/conf.d -l /var/log/logstash/logstash.log
+
+May 26 14:51:42 U14K systemd[1]: Starting LSB: Starts Logstash as a daemon....
+May 26 14:51:42 U14K logstash[6211]: logstash started.
+May 26 14:51:42 U14K systemd[1]: Started LSB: Starts Logstash as a daemon..
+
+-----------------Elasticserach----------------------------------------
+wget es index
+{
+  "name" : "Plantman",
+  "cluster_name" : "elasticsearch",
+  "version" : {
+    "number" : "5.0.0-alpha3",
+    "build_hash" : "cad959b",
+    "build_date" : "2016-05-26T08:25:57.564Z",
+    "build_snapshot" : false,
+    "lucene_version" : "6.0.0"
+  },
+  "tagline" : "You Know, for Search"
+}
+
+-----------------Kibana log-------------------------------------------
+grep kibana log for 'green'
+grep kibana log for 'green'
+grep kibana log for 'green'
+grep kibana log for 'green'
+grep kibana log for 'green'
+May 26 14:51:55 U14K kibana[6177]: {"type":"log","@timestamp":"2016-05-26T19:51:55+00:00","tags":["status","plugin:elasticsearch","info"],"pid":6177,"name":"plugin:elasticsearch","state":"green","message":"Status changed from yellow to green - Kibana index ready","prevState":"yellow","prevMsg":"No existing Kibana index found"}
+
+----------------------------------------------------------------------
+
+-----------------Shield File Users-----------------------------------------
+loggy          : logstash
+user           : kibanaUser
+
+-----------------Shield Native Users-----------------------------------------
+{
+  "elastic" : {
+    "username" : "elastic",
+    "roles" : [ "superuser" ],
+    "full_name" : null,
+    "email" : null,
+    "metadata" : {
+      "_reserved" : true
+    }
+  },
+  "kibana" : {
+    "username" : "kibana",
+    "roles" : [ "kibana" ],
+    "full_name" : null,
+    "email" : null,
+    "metadata" : {
+      "_reserved" : true
+    }
+  }
+}
+{
+  "superuser" : {
+    "cluster" : [ "all" ],
+    "indices" : [ {
+      "names" : [ "*" ],
+      "privileges" : [ "all" ]
+    } ],
+    "run_as" : [ "*" ]
+  },
+  "transport_client" : {
+    "cluster" : [ "transport_client" ],
+    "indices" : [ ],
+    "run_as" : [ ]
+  }
+}
+{"user":{"created":true}}/usr/share/topbeat/kibana ~/integration-test
+Import dashboards,visualizations, searches and index pattern from . to http://localhost:9200 in .kibana
+Import search Filesystem-stats:
+{"_index":".kibana","_type":"search","_id":"Filesystem-stats","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search Process-stats:
+{"_index":".kibana","_type":"search","_id":"Process-stats","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search System-stats:
+{"_index":".kibana","_type":"search","_id":"System-stats","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization CPU-usage:
+{"_index":".kibana","_type":"visualization","_id":"CPU-usage","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization CPU-usage-per-process:
+{"_index":".kibana","_type":"visualization","_id":"CPU-usage-per-process","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Disk-usage:
+{"_index":".kibana","_type":"visualization","_id":"Disk-usage","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Disk-usage-over-time:
+{"_index":".kibana","_type":"visualization","_id":"Disk-usage-over-time","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Memory-usage:
+{"_index":".kibana","_type":"visualization","_id":"Memory-usage","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Memory-usage-per-proc:
+{"_index":".kibana","_type":"visualization","_id":"Memory-usage-per-proc","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Process-status:
+{"_index":".kibana","_type":"visualization","_id":"Process-status","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Servers:
+{"_index":".kibana","_type":"visualization","_id":"Servers","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization System-load:
+{"_index":".kibana","_type":"visualization","_id":"System-load","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Top10-cpu-per-proc:
+{"_index":".kibana","_type":"visualization","_id":"Top10-cpu-per-proc","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Top10-memory:
+{"_index":".kibana","_type":"visualization","_id":"Top10-memory","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Top-processes:
+{"_index":".kibana","_type":"visualization","_id":"Top-processes","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Topbeat-Dashboard:
+{"_index":".kibana","_type":"dashboard","_id":"Topbeat-Dashboard","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import index pattern topbeat-*:
+{"_index":".kibana","_type":"index-pattern","_id":"topbeat-*","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+~/integration-test
+/usr/share/filebeat/kibana ~/integration-test
+Import dashboards,visualizations, searches and index pattern from . to http://localhost:9200 in .kibana
+Import index pattern filebeat-*:
+{"_index":".kibana","_type":"index-pattern","_id":"filebeat-*","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+~/integration-test
+/usr/share/packetbeat/kibana ~/integration-test
+Import dashboards,visualizations, searches and index pattern from . to http://localhost:9200 in .kibana
+Import search Cache-transactions:
+{"_index":".kibana","_type":"search","_id":"Cache-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search DB-transactions:
+{"_index":".kibana","_type":"search","_id":"DB-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search HTTP-errors:
+{"_index":".kibana","_type":"search","_id":"HTTP-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search MongoDB-errors:
+{"_index":".kibana","_type":"search","_id":"MongoDB-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search MongoDB-transactions:
+{"_index":".kibana","_type":"search","_id":"MongoDB-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search MongoDB-transactions-with-write-concern-0:
+{"_index":".kibana","_type":"search","_id":"MongoDB-transactions-with-write-concern-0","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search MySQL-errors:
+{"_index":".kibana","_type":"search","_id":"MySQL-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search MySQL-Transactions:
+{"_index":".kibana","_type":"search","_id":"MySQL-Transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search nfs:
+{"_index":".kibana","_type":"search","_id":"nfs","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search Packetbeat-Flows-Search:
+{"_index":".kibana","_type":"search","_id":"Packetbeat-Flows-Search","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search Packetbeat-Search:
+{"_index":".kibana","_type":"search","_id":"Packetbeat-Search","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search PgSQL-errors:
+{"_index":".kibana","_type":"search","_id":"PgSQL-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search PgSQL-transactions:
+{"_index":".kibana","_type":"search","_id":"PgSQL-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search RPC-transactions:
+{"_index":".kibana","_type":"search","_id":"RPC-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search Thrift-errors:
+{"_index":".kibana","_type":"search","_id":"Thrift-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search Thrift-transactions:
+{"_index":".kibana","_type":"search","_id":"Thrift-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search Transactions-errors:
+{"_index":".kibana","_type":"search","_id":"Transactions-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import search Web-transactions:
+{"_index":".kibana","_type":"search","_id":"Web-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Cache-transactions:
+{"_index":".kibana","_type":"visualization","_id":"Cache-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Client-locations:
+{"_index":".kibana","_type":"visualization","_id":"Client-locations","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization DB-transactions:
+{"_index":".kibana","_type":"visualization","_id":"DB-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Errors-count-over-time:
+{"_index":".kibana","_type":"visualization","_id":"Errors-count-over-time","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Errors-vs-successful-transactions:
+{"_index":".kibana","_type":"visualization","_id":"Errors-vs-successful-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Evolution-of-the-CPU-times-per-process:
+{"_index":".kibana","_type":"visualization","_id":"Evolution-of-the-CPU-times-per-process","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization HTTP-codes-for-the-top-queries:
+{"_index":".kibana","_type":"visualization","_id":"HTTP-codes-for-the-top-queries","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization HTTP-error-codes-evolution:
+{"_index":".kibana","_type":"visualization","_id":"HTTP-error-codes-evolution","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization HTTP-error-codes:
+{"_index":".kibana","_type":"visualization","_id":"HTTP-error-codes","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Latency-histogram:
+{"_index":".kibana","_type":"visualization","_id":"Latency-histogram","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MongoDB-commands:
+{"_index":".kibana","_type":"visualization","_id":"MongoDB-commands","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MongoDB-errors:
+{"_index":".kibana","_type":"visualization","_id":"MongoDB-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MongoDB-errors-per-collection:
+{"_index":".kibana","_type":"visualization","_id":"MongoDB-errors-per-collection","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MongoDB-in-slash-out-throughput:
+{"_index":".kibana","_type":"visualization","_id":"MongoDB-in-slash-out-throughput","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MongoDB-response-times-and-count:
+{"_index":".kibana","_type":"visualization","_id":"MongoDB-response-times-and-count","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MongoDB-response-times-by-collection:
+{"_index":".kibana","_type":"visualization","_id":"MongoDB-response-times-by-collection","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Most-frequent-MySQL-queries:
+{"_index":".kibana","_type":"visualization","_id":"Most-frequent-MySQL-queries","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Most-frequent-PgSQL-queries:
+{"_index":".kibana","_type":"visualization","_id":"Most-frequent-PgSQL-queries","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MySQL-Errors:
+{"_index":".kibana","_type":"visualization","_id":"MySQL-Errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MySQL-Methods:
+{"_index":".kibana","_type":"visualization","_id":"MySQL-Methods","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MySQL-Reads-vs-Writes:
+{"_index":".kibana","_type":"visualization","_id":"MySQL-Reads-vs-Writes","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Mysql-response-times-percentiles:
+{"_index":".kibana","_type":"visualization","_id":"Mysql-response-times-percentiles","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization MySQL-throughput:
+{"_index":".kibana","_type":"visualization","_id":"MySQL-throughput","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Navigation:
+{"_index":".kibana","_type":"visualization","_id":"Navigation","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-bytes-in-slash-out:
+{"_index":".kibana","_type":"visualization","_id":"NFS-bytes-in-slash-out","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-clients-pie-chart:
+{"_index":".kibana","_type":"visualization","_id":"NFS-clients-pie-chart","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-errors:
+{"_index":".kibana","_type":"visualization","_id":"NFS-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-operations-area-chart:
+{"_index":".kibana","_type":"visualization","_id":"NFS-operations-area-chart","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-operation-table:
+{"_index":".kibana","_type":"visualization","_id":"NFS-operation-table","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-response-times:
+{"_index":".kibana","_type":"visualization","_id":"NFS-response-times","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-top-group-pie-chart:
+{"_index":".kibana","_type":"visualization","_id":"NFS-top-group-pie-chart","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization NFS-top-users-pie-chart:
+{"_index":".kibana","_type":"visualization","_id":"NFS-top-users-pie-chart","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Number-of-MongoDB-transactions-with-writeConcern-w-equal-0:
+{"_index":".kibana","_type":"visualization","_id":"Number-of-MongoDB-transactions-with-writeConcern-w-equal-0","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization PgSQL-Errors:
+{"_index":".kibana","_type":"visualization","_id":"PgSQL-Errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization PgSQL-Methods:
+{"_index":".kibana","_type":"visualization","_id":"PgSQL-Methods","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization PgSQL-Reads-vs-Writes:
+{"_index":".kibana","_type":"visualization","_id":"PgSQL-Reads-vs-Writes","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization PgSQL-response-times-percentiles:
+{"_index":".kibana","_type":"visualization","_id":"PgSQL-response-times-percentiles","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization PgSQL-throughput:
+{"_index":".kibana","_type":"visualization","_id":"PgSQL-throughput","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Reads-versus-Writes:
+{"_index":".kibana","_type":"visualization","_id":"Reads-versus-Writes","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Response-times-percentiles:
+{"_index":".kibana","_type":"visualization","_id":"Response-times-percentiles","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Response-times-repartition:
+{"_index":".kibana","_type":"visualization","_id":"Response-times-repartition","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization RPC-transactions:
+{"_index":".kibana","_type":"visualization","_id":"RPC-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Slowest-MySQL-queries:
+{"_index":".kibana","_type":"visualization","_id":"Slowest-MySQL-queries","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Slowest-PgSQL-queries:
+{"_index":".kibana","_type":"visualization","_id":"Slowest-PgSQL-queries","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Slowest-Thrift-RPC-methods:
+{"_index":".kibana","_type":"visualization","_id":"Slowest-Thrift-RPC-methods","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Thrift-requests-per-minute:
+{"_index":".kibana","_type":"visualization","_id":"Thrift-requests-per-minute","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Thrift-response-times-percentiles:
+{"_index":".kibana","_type":"visualization","_id":"Thrift-response-times-percentiles","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Thrift-RPC-Errors:
+{"_index":".kibana","_type":"visualization","_id":"Thrift-RPC-Errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Top-10-HTTP-requests:
+{"_index":".kibana","_type":"visualization","_id":"Top-10-HTTP-requests","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Top-slowest-MongoDB-queries:
+{"_index":".kibana","_type":"visualization","_id":"Top-slowest-MongoDB-queries","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Top-Thrift-RPC-calls-with-errors:
+{"_index":".kibana","_type":"visualization","_id":"Top-Thrift-RPC-calls-with-errors","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Top-Thrift-RPC-methods:
+{"_index":".kibana","_type":"visualization","_id":"Top-Thrift-RPC-methods","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Total-number-of-HTTP-transactions:
+{"_index":".kibana","_type":"visualization","_id":"Total-number-of-HTTP-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Total-time-spent-in-each-MongoDB-collection:
+{"_index":".kibana","_type":"visualization","_id":"Total-time-spent-in-each-MongoDB-collection","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization Web-transactions:
+{"_index":".kibana","_type":"visualization","_id":"Web-transactions","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Packetbeat-Dashboard:
+{"_index":".kibana","_type":"dashboard","_id":"Packetbeat-Dashboard","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Packetbeat-HTTP:
+{"_index":".kibana","_type":"dashboard","_id":"Packetbeat-HTTP","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Packetbeat-MongoDB-performance:
+{"_index":".kibana","_type":"dashboard","_id":"Packetbeat-MongoDB-performance","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Packetbeat-MySQL-performance:
+{"_index":".kibana","_type":"dashboard","_id":"Packetbeat-MySQL-performance","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Packetbeat-NFS:
+{"_index":".kibana","_type":"dashboard","_id":"Packetbeat-NFS","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Packetbeat-PgSQL-performance:
+{"_index":".kibana","_type":"dashboard","_id":"Packetbeat-PgSQL-performance","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard Packetbeat-Thrift-performance:
+{"_index":".kibana","_type":"dashboard","_id":"Packetbeat-Thrift-performance","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import index pattern packetbeat-*:
+{"_index":".kibana","_type":"index-pattern","_id":"packetbeat-*","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+~/integration-test
+/usr/share/metricbeat/kibana ~/integration-test
+Import dashboards,visualizations, searches and index pattern from . to http://localhost:9200 in .kibana
+Import visualization connected_clients:
+{"_index":".kibana","_type":"visualization","_id":"connected_clients","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization connections-received:
+{"_index":".kibana","_type":"visualization","_id":"connections-received","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import visualization metricbeat-mysql-open:
+{"_index":".kibana","_type":"visualization","_id":"metricbeat-mysql-open","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard metricbeat-mysql:
+{"_index":".kibana","_type":"dashboard","_id":"metricbeat-mysql","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import dashboard metricbeat-redis:
+{"_index":".kibana","_type":"dashboard","_id":"metricbeat-redis","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+Import index pattern metricbeat-*:
+{"_index":".kibana","_type":"index-pattern","_id":"metricbeat-*","_version":1,"_shards":{"total":2,"successful":1,"failed":0},"created":true}
+~/integration-test
