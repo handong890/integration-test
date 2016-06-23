@@ -1,3 +1,4 @@
+#!/bin/bash
 PRODUCTS="packetbeat filebeat metricbeat elasticsearch kibana logstash"
 ELASTICUSER=elastic
 ELASTICPWD=changeme

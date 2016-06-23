@@ -9,21 +9,26 @@ if [ `grep DISTRIB_ID /etc/*-release | cut -d= -f2` != 'Ubuntu' ]; then
   exit 1
 fi
 
-PRODUCTS="packetbeat topbeat filebeat metricbeat elasticsearch kibana logstash"
+if [ -z "$PRODUCTS" ]; then . ./setenv.sh; fi
 
-
-
-# Stop Services, Remove Services, Delete Packages 
-for i in $PRODUCTS; do echo "-- Stopping $i" & service $i stop; done
+./stop_services.sh
 
 # have to wait for services to stop or the uninstall will fail
 for i in `seq 1 20`; do sleep 2; service logstash status | tail -n1; service logstash status | grep Stopped && break; done
 kill -9 `pidof java`
-for i in $PRODUCTS; do echo "-- apt-get purge $i" & apt-get purge -y -q $i; done
-for i in $PRODUCTS; do echo "-- dpkg --purge $i" & dpkg --purge $i; done
+
+./purge_products.sh
+
+
+rm -rf /var/log/filebeat
+rm -rf /var/log/packetbeat
+rm -rf /var/log/metricbeat
+rm -rf /etc/filebeat
+rm -rf /etc/packetbeat
+rm -rf /etc/metricbeat
 
 # Kibana cleanup
-rm -rf /opt/kibana
+#rm -rf /opt/kibana
 
 # Elasticsearch cleanup
 rm -rf /var/log/elasticsearch
@@ -32,10 +37,6 @@ rm -rf /etc/elasticsearch
 rm -rf /usr/share/elasticsearch
 
 rm -rf /var/log/logstash
-rm -rf /var/lib/logstash
 rm -rf /etc/logstash
-
-rm -rf /var/log/kibana
-
-#for i in $PRODUCTS; do echo "-- Deleting $i*.deb" & rm $i*.deb; done
+#rm -rf /var/lib/logstash
 

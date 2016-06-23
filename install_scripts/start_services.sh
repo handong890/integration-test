@@ -1,3 +1,4 @@
+#!/bin/bash
 # Start Services
 if [ -z "$PRODUCTS" ]; then . ./setenv.sh; fi
 

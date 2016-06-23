@@ -1,3 +1,4 @@
+#!/bin/bash
 if [ -z "$BEATS" ]; then . ./setenv.sh; fi
 
 for beat in $BEATS; do (

@@ -51,7 +51,7 @@ echo Install Elasticsearch X-Pack
 ES_JAVA_OPTS="-Des.plugins.staging=b0da471" /usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack || exit 1
 
 echo Install Kibana UI Plugins
-#/usr/share/kibana/bin/kibana-plugin install timelion || exit 1
+/usr/share/kibana/bin/kibana-plugin install timelion || exit 1
 #/usr/share/kibana/bin/kibana-plugin install x-pack
 /usr/share/kibana/bin/kibana-plugin install https://download.elasticsearch.org/elasticsearch/staging/5.0.0-alpha4-b0da471/kibana/x-pack-5.0.0-alpha4.zip || exit 1
 
@@ -101,37 +101,13 @@ echo "-- Configure Kibana with the Shield user"
 
 ./start_services.sh || exit 1
 
-# xpack issue 2200, we need to start Elasticsearch FIRST and after it's started we can start Kibana
-# otherwise Kibana doesn't get the license info and has to be restarted
-
-#service elasticsearch start || exit 1
-#rm index.html*
-# try 10 times, 2 seconds apart
-#echo -e "\n-----------------Elasticserach----------------------------------------"
-#for i in `seq 1 20`; do echo "wget es index" && sleep 2 && wget -q --http-user=elastic --http-password=changeme http://localhost:9200 && break; done
-#cat index.html
-#service kibana start || exit 1
-#service logstash start || exit 1
-#service filebeat start || exit 1
-#service packetbeat start || exit 1
-#service metricbeat start || exit 1
-
-
-
+# make some packet data
 ping -c 100 www.google.com >/dev/null &
 
 
 ./check.sh
 
-#curl -POST http://elastic:changeme@localhost:9200/_xpack/security/user/$NATIVEKIBANAUSER -d '{ 
-#  "password" : "changeme",
-#  "roles" : [ "kibanaUser" ],
-#  "full_name" : "Tony Stark",
-#  "email" : "tony@starkcorp.co",
-#  "metadata" : {
-#    "intelligence" : 7
-#  }
-#}'
+./create_kibana_user.sh
 
 
 # {"cluster":["manage_security"],"indices":[],"run_as":[],"name":"testRole1"}{"cluster":["manage_security"],"indices":[],"run_as":[],"name":"testRole1"}
