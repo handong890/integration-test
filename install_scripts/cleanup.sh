@@ -20,6 +20,7 @@ kill -9 `pidof java`
 ./purge_products.sh
 
 
+echo "Removing those unpurged directories"
 rm -rf /var/log/filebeat
 rm -rf /var/log/packetbeat
 rm -rf /var/log/metricbeat
@@ -39,4 +40,5 @@ rm -rf /usr/share/elasticsearch
 rm -rf /var/log/logstash
 rm -rf /etc/logstash
 #rm -rf /var/lib/logstash
+rm -rf /usr/share/logstash
 

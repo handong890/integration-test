@@ -9,9 +9,8 @@ if [ `grep DISTRIB_ID /etc/*-release | cut -d= -f2` != 'Ubuntu' ]; then
   exit 1
 fi
 
-PRODUCTS="packetbeat topbeat filebeat elasticsearch kibana logstash"
+if [ -z "$PRODUCTS" ]; then . ./setenv.sh; fi
 
-XPLUGINS="license marvel-agent shield watcher"
 
 echo -e "\n-----------------Package Information----------------------------------"
 dpkg --list $PRODUCTS
@@ -22,7 +21,7 @@ for i in $PRODUCTS; do service $i status; done
 rm index.html*
 # try 10 times, 2 seconds apart
 echo -e "\n-----------------Elasticserach----------------------------------------"
-for i in `seq 1 20`; do echo "wget es index" && sleep 2 && wget -q --http-user=elastic --http-password=changeme http://localhost:9200 && break; done
+for i in `seq 1 20`; do echo "wget es index" && sleep 2 && wget -q --http-user=$ELASTICUSER --http-password=$ELASTICPWD http://localhost:9200 && break; done
 cat index.html
 
 echo -e "\n-----------------Kibana log-------------------------------------------"
@@ -36,5 +35,5 @@ echo -e "\n---------------------------------------------------------------------
 echo -e "\n-----------------Shield File Users-----------------------------------------"
 /usr/share/elasticsearch/bin/x-pack/users list
 echo -e "\n-----------------Shield Native Users-----------------------------------------"
-curl -XGET http://elastic:changeme@127.0.0.1:9200/_xpack/security/user?pretty
-curl -XGET http://elastic:changeme@127.0.0.1:9200/_xpack/security/role?pretty
+curl -XGET http://$ELASTICUSER:$ELASTICPWD@127.0.0.1:9200/_xpack/security/user?pretty
+curl -XGET http://$ELASTICUSER:$ELASTICPWD@127.0.0.1:9200/_xpack/security/role?pretty
