@@ -21,10 +21,10 @@ fi
 echo Download latest packages - see https://github.com/elastic/dev/issues/665
 
 # ELASTICSEARCH
-ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha4-0cae9ad/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha4/elasticsearch-5.0.0-alpha4.deb || exit 1
+ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha4-3f5b994/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha4/elasticsearch-5.0.0-alpha4.deb  || exit 1
 
 # KIBANA
-ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-alpha4-c6f5963/kibana/kibana-5.0.0-alpha4-amd64.deb || exit 1
+ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-alpha4-dea1cac/kibana/kibana-5.0.0-alpha4-amd64.deb || exit 1
 #cp ../kibana/target/kibana_5.0.0-snapshot_amd64.deb ./
 
 # LOGSTASH
@@ -48,12 +48,12 @@ echo Configure beats authenication
 
 echo Install Elasticsearch X-Pack
 #/usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack
-time ES_JAVA_OPTS="-Des.plugins.staging=b0da471" /usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack || exit 1
+time ES_JAVA_OPTS="-Des.plugins.staging=3f5b994" /usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack || exit 1
 
 echo Install Kibana UI Plugins
 time /usr/share/kibana/bin/kibana-plugin install timelion || exit 1
 #/usr/share/kibana/bin/kibana-plugin install x-pack
-time /usr/share/kibana/bin/kibana-plugin install https://download.elasticsearch.org/elasticsearch/staging/5.0.0-alpha4-0cae9ad/kibana/x-pack-5.0.0-alpha4.zip || exit 1
+time /usr/share/kibana/bin/kibana-plugin install https://download.elasticsearch.org/elasticsearch/staging/5.0.0-alpha4-3f5b994/kibana/x-pack-5.0.0-alpha4.zip || exit 1
 
 # fix an issue in kibana if you install plugins as root before you've started kibana the first time
 # https://github.com/elastic/kibana/issues/6730
