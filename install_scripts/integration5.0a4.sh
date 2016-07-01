@@ -24,20 +24,20 @@ echo Download latest packages - see https://github.com/elastic/dev/issues/665
 ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha4-3f5b994/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha4/elasticsearch-5.0.0-alpha4.deb  || exit 1
 
 # KIBANA
-ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-alpha4-dea1cac/kibana/kibana-5.0.0-alpha4-amd64.deb || exit 1
+ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-alpha4-c22c5da/kibana/kibana-5.0.0-alpha4-amd64.deb || exit 1
 #cp ../kibana/target/kibana_5.0.0-snapshot_amd64.deb ./
 
 # LOGSTASH
-ls logstash*.deb || wget https://download.elastic.co/logstash/logstash/logstash-5.0.0-alpha4.deb || exit 1
+ls logstash*.deb || wget https://download.elastic.co/logstash/logstash/packages/debian/logstash-5.0.0-alpha4.deb || exit 1
 
 # FILEBEAT
-ls filebeat*.deb || wget https://download.elastic.co/beats/filebeat/filebeat-5.0.0-alpha4-SNAPSHOT-amd64.deb || exit 1
+ls filebeat*.deb || wget https://download.elastic.co/beats/filebeat/filebeat-5.0.0-alpha4-amd64.deb || exit 1
 
 # PACKETBEAT
-ls packetbeat*.deb || wget https://download.elastic.co/beats/packetbeat/packetbeat-5.0.0-alpha4-SNAPSHOT-amd64.deb || exit 1
+ls packetbeat*.deb || wget https://download.elastic.co/beats/packetbeat/packetbeat-5.0.0-alpha4-amd64.deb || exit 1
 
 # METRICBEAT
-ls metricbeat*.deb || wget https://download.elastic.co/beats/metricbeat/metricbeat-5.0.0-alpha4-SNAPSHOT-amd64.deb || exit 1
+ls metricbeat*.deb || wget https://download.elastic.co/beats/metricbeat/metricbeat-5.0.0-alpha4-amd64.deb || exit 1
 
 ./install_packages.sh || exit 1
 
