@@ -2,7 +2,6 @@
 import {
   bdd,
   remote,
-  scenarioManager,
   defaultTimeout
 } from '../../../support';
 
@@ -14,10 +13,6 @@ bdd.describe('discover app', function () {
   bdd.before(function () {
     return PageObjects.remote.setWindowSize(1200,800);
   });
-
-  // bdd.after(function unloadMakelogs() {
-  //   return scenarioManager.unload('logstashFunctional');
-  // });
 
   require('./_discover');
   require('./_field_data');

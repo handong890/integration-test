@@ -3,7 +3,6 @@ import expect from 'expect.js';
 
 import {
   bdd,
-  scenarioManager,
   esClient,
   elasticDump
 } from '../../../support';
@@ -24,20 +23,8 @@ bdd.describe('shared links', function describeIndexTests() {
     var fromTime = '2015-09-19 06:31:44.000';
     var toTime = '2015-09-23 18:31:44.000';
 
-    // delete .kibana index and update configDoc
-    return esClient.deleteAndUpdateConfigDoc({'dateFormat:tz':'UTC', 'defaultIndex':'logstash-*'})
-    .then(function loadkibanaIndexPattern() {
-      PageObjects.common.debug('load kibana index with default index pattern');
-      return elasticDump.elasticLoad('visualize','.kibana');
-    })
-    // and load a set of makelogs data
-    .then(function loadIfEmptyMakelogs() {
-      return scenarioManager.loadIfEmpty('logstashFunctional');
-    })
-    .then(function () {
-      PageObjects.common.debug('discover');
-      return PageObjects.common.navigateToApp('discover');
-    })
+    PageObjects.common.debug('discover');
+    return PageObjects.common.navigateToApp('discover')
     .then(function () {
       PageObjects.common.debug('setAbsoluteRange');
       return PageObjects.header.setAbsoluteRange(fromTime, toTime);

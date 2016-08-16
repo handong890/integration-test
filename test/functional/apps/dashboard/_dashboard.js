@@ -3,7 +3,6 @@ import expect from 'expect.js';
 
 import {
   bdd,
-  scenarioManager,
   esClient,
   elasticDump
 } from '../../../support';
@@ -12,19 +11,8 @@ import PageObjects from '../../../support/page_objects';
 
 bdd.describe('dashboard tab', function describeIndexTests() {
   bdd.before(function () {
-    PageObjects.common.debug('Starting dashboard before method');
-    var logstash = scenarioManager.loadIfEmpty('logstashFunctional');
-    // delete .kibana index and update configDoc
-    return esClient.deleteAndUpdateConfigDoc({'dateFormat:tz':'UTC', 'defaultIndex':'logstash-*'})
-    // and load a set of makelogs data
-    .then(function loadkibanaVisualizations() {
-      PageObjects.common.debug('load kibana index with visualizations');
-      return elasticDump.elasticLoad('dashboard','.kibana');
-    })
-    .then(function () {
-      PageObjects.common.debug('navigateToApp dashboard');
-      return PageObjects.common.navigateToApp('dashboard');
-    })
+    PageObjects.common.debug('navigateToApp dashboard');
+    return PageObjects.common.navigateToApp('dashboard')
     // wait for the logstash data load to finish if it hasn't already
     .then(function () {
       return logstash;

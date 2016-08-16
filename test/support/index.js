@@ -6,7 +6,6 @@ import {
   ElasticDump,
   EsClient,
 } from './utils';
-import ScenarioManager from '../fixtures/scenario_manager';
 import PageObjects from './page_objects';
 
 // Intern values provided via the root index file of the test suite.
@@ -21,8 +20,6 @@ exports.defaultTryTimeout = config.defaultTryTimeout;
 exports.defaultFindTimeout = config.defaultFindTimeout;
 
 // Helper instances
-exports.scenarioManager =
-  new ScenarioManager(url.format(config.servers.elasticsearch));
 exports.elasticDump = new ElasticDump();
 exports.esClient = new EsClient(url.format(config.servers.elasticsearch));
 
