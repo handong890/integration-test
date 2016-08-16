@@ -63,14 +63,14 @@ PLATFORM=-amd64
 #./cleanup.sh
 
 
-ls packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget http://${BASEURL}/download/beats/packetbeat/packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
-ls filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}   || wget http://${BASEURL}/download/beats/filebeat/filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
-ls metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget http://${BASEURL}/download/beats/metricbeat/metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
-ls kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}     || wget http://${BASEURL}/download/kibana/kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
+ls packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget -q http://${BASEURL}/download/beats/packetbeat/packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
+ls filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}   || wget -q http://${BASEURL}/download/beats/filebeat/filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
+ls metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget -q http://${BASEURL}/download/beats/metricbeat/metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
+ls kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}     || wget -q http://${BASEURL}/download/kibana/kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
 # http://snapshots.elastic.co/download/kibana/kibana-5.0.0-alpha5-SNAPSHOT-amd64.deb
 
-ls logstash-${VERSION}${SNAPSHOT}.${PACKAGE}      || wget http://${BASEURL}/download/logstash/logstash-${VERSION}${SNAPSHOT}.${PACKAGE}
-ls elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} || wget http://${BASEURL}/download/elasticsearch/elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE}
+ls logstash-${VERSION}${SNAPSHOT}.${PACKAGE}      || wget -q http://${BASEURL}/download/logstash/logstash-${VERSION}${SNAPSHOT}.${PACKAGE}
+ls elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} || wget -q http://${BASEURL}/download/elasticsearch/elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE}
 
 ./install_packages.sh || exit 1
 
@@ -80,7 +80,7 @@ echo Configure beats authenication
 ./configure_beats.sh || exit 1
 
 echo Install Elasticsearch X-Pack
-ls x-pack-${VERSION}${SNAPSHOT}.zip || wget http://${BASEURL}/download/elasticsearch/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
+ls x-pack-${VERSION}${SNAPSHOT}.zip || wget -q http://${BASEURL}/download/elasticsearch/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
 time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip
 
 echo Install Kibana UI Plugins
