@@ -16,28 +16,16 @@ fi
 
 . ./setenv.sh
 
+VERSION=5.0.0-alpha5
+SNAPSHOT=-SNAPSHOT
+BASEURL=snapshots.elastic.co
+PACKAGE=deb
+
 #./cleanup.sh
 
 echo Download latest packages - see https://github.com/elastic/dev/issues/665
 
-# ELASTICSEARCH
-ls elasticsearch*.deb || wget http://download.elastic.co/elasticsearch/staging/5.0.0-alpha4-3f5b994/org/elasticsearch/distribution/deb/elasticsearch/5.0.0-alpha4/elasticsearch-5.0.0-alpha4.deb  || exit 1
-
-# KIBANA
-ls kibana*.deb || wget https://download.elastic.co/kibana/staging/5.0.0-alpha4-dea1cac/kibana/kibana-5.0.0-alpha4-amd64.deb || exit 1
-#cp ../kibana/target/kibana_5.0.0-snapshot_amd64.deb ./
-
-# LOGSTASH
-ls logstash*.deb || wget https://download.elastic.co/logstash/logstash/logstash-5.0.0-alpha4.deb || exit 1
-
-# FILEBEAT
-ls filebeat*.deb || wget https://download.elastic.co/beats/filebeat/filebeat-5.0.0-alpha4-SNAPSHOT-amd64.deb || exit 1
-
-# PACKETBEAT
-ls packetbeat*.deb || wget https://download.elastic.co/beats/packetbeat/packetbeat-5.0.0-alpha4-SNAPSHOT-amd64.deb || exit 1
-
-# METRICBEAT
-ls metricbeat*.deb || wget https://download.elastic.co/beats/metricbeat/metricbeat-5.0.0-alpha4-SNAPSHOT-amd64.deb || exit 1
+for PRODUCT in $PRODUCTS; do wget http://${BASEURL}/download/${PRODUCT}/${PRODUCT}-${VERSION}${SNAPSHOT}.${PACKAGE}
 
 ./install_packages.sh || exit 1
 
@@ -47,13 +35,12 @@ echo Configure beats authenication
 ./configure_beats.sh || exit 1
 
 echo Install Elasticsearch X-Pack
-#/usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack
-time ES_JAVA_OPTS="-Des.plugins.staging=3f5b994" /usr/share/elasticsearch/bin/elasticsearch-plugin install -b x-pack || exit 1
+/usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${BASEURL}/download/elasticsearch/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
 
 echo Install Kibana UI Plugins
-time /usr/share/kibana/bin/kibana-plugin install timelion || exit 1
-#/usr/share/kibana/bin/kibana-plugin install x-pack
-time /usr/share/kibana/bin/kibana-plugin install https://download.elasticsearch.org/elasticsearch/staging/5.0.0-alpha4-3f5b994/kibana/x-pack-5.0.0-alpha4.zip || exit 1
+#time /usr/share/kibana/bin/kibana-plugin install timelion || exit 1
+#/usr/share/kibana/bin/kibana-plugin install x-pack         http://staging.elastic.co/5.0.0-alpha5-3ae231c8/download/kibana/plugins/x-pack/x-pack-5.0.0-alpha5.zip
+time /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
 
 # fix an issue in kibana if you install plugins as root before you've started kibana the first time
 # https://github.com/elastic/kibana/issues/6730
@@ -79,10 +66,10 @@ cp logstash.conf /etc/logstash/conf.d/ || exit 1
 
 # curl put watcher trigger data?
 
-ls server.crt || wget https://raw.githubusercontent.com/elastic/kibana/master/test/dev_certs/server.crt || exit 1
-ls server.key || wget https://raw.githubusercontent.com/elastic/kibana/master/test/dev_certs/server.key || exit 1
-ls ca.zip || zip ca.zip server.* || exit 1
-echo "-- Configure Kibana with the Shield user"
+#ls server.crt || wget https://raw.githubusercontent.com/elastic/kibana/master/test/dev_certs/server.crt || exit 1
+#ls server.key || wget https://raw.githubusercontent.com/elastic/kibana/master/test/dev_certs/server.key || exit 1
+#ls ca.zip || zip ca.zip server.* || exit 1
+#echo "-- Configure Kibana with the Shield user"
 #export KIBANACONF=/usr/share/kibana/config/kibana.yml
 #cp $KIBANACONF ${KIBANACONF}.bck
 #echo xpack.security.kibana.username: kibana  >> $KIBANACONF  # NOT ALLOWED

@@ -1,3 +1,4 @@
+#!/bin/bash
 
 # Requires cygwin with unzip (non-default option)
 

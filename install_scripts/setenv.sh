@@ -1,5 +1,5 @@
 #!/bin/bash
-PRODUCTS="packetbeat filebeat metricbeat elasticsearch kibana logstash"
+PRODUCTS="packetbeat filebeat metricbeat winlogbeat elasticsearch kibana logstash"
 ELASTICUSER=elastic
 ELASTICPWD=changeme
 
@@ -15,4 +15,4 @@ NATIVEKIBANAPWD=changeme
 LOGSTASHUSER=loggy
 LOGSTASHPWD=changeme
 
-BEATS="metricbeat packetbeat filebeat"
+BEATS="metricbeat packetbeat filebeat winlogbeat"
