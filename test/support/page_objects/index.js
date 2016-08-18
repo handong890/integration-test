@@ -8,6 +8,7 @@ import SettingsPage from './settings_page';
 import ShieldPage from './shield_page';
 import VisualizePage from './visualize_page';
 import MonitoringPage from './monitoring_page';
+import GraphPage from './graph_page';
 
 const common = new Common();
 const consolePage = new ConsolePage();
@@ -18,6 +19,7 @@ const settingsPage = new SettingsPage();
 const shieldPage = new ShieldPage();
 const visualizePage = new VisualizePage();
 const monitoringPage = new MonitoringPage();
+const graphPage = new GraphPage();
 
 class PageObjects {
 
@@ -38,6 +40,7 @@ class PageObjects {
     shieldPage.init(remote);
     visualizePage.init(remote);
     monitoringPage.init(remote);
+    graphPage.init(remote);
   }
 
   assertInitialized() {
@@ -81,6 +84,10 @@ class PageObjects {
 
   get monitoring() {
     return this.assertInitialized() && monitoringPage;
+  }
+
+  get graph() {
+    return this.assertInitialized() && graphPage;
   }
 
 }

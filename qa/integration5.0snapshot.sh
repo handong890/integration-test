@@ -14,12 +14,16 @@ ubuntu_version=$(grep VERSION_ID /etc/*-release)
 if [[ $java_version < 1.8 ]]; then
   echo "Install Java 8"
   sudo add-apt-repository -y ppa:webupd8team/java
-  sudo apt-get update
+  sudo apt-get -qq update
   echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo /usr/bin/debconf-set-selections
-  sudo apt-get install -y oracle-java8-installer
+  sudo apt-get -qq install -y oracle-java8-installer
 fi
 
-java -version
+java_version=$(java -version 2>&1 | grep version | sed 's|.* version "\(.*\..*\)\..*_.*"|\1|')
+echo "Java version = $java_version"
+if [[ $java_version < 1.8 ]]; then
+  exit 1
+fi
 
 . ./setenv.sh
 
@@ -61,7 +65,6 @@ echo "-- Configure Shield users/roles for Kibana"
 
 echo "-- let logstash process read syslog"
 #sudo setfacl -m u:logstash:r /var/log/syslog || exit 1 (not mounted with acls)
-
 sudo chmod o+r /var/log/syslog
 sudo cp logstash.conf /etc/logstash/conf.d/ || exit 1
 
@@ -102,5 +105,3 @@ popd
 pushd /usr/share/metricbeat/kibana/
 ./import_dashboards.sh -u $ELASTICUSER:$ELASTICPWD &>/dev/null
 popd
-
-#./run_tests.sh

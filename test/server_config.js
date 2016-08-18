@@ -49,6 +49,9 @@ module.exports = {
     },
     monitoring: {
       pathname: 'app/monitoring'
+    },
+    graph: {
+      pathname: 'app/graph'
     }
   }
 };

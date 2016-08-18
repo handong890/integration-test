@@ -105,8 +105,14 @@ export default class Common {
               if (appId === 'login') {
                 self.debug('Found loginPage');
                 return PageObjects.shield.login(config.servers.kibana.username,
-                  config.servers.kibana.password);
-              } else if ((appId !== 'kibana') && (appId !== 'monitoring')) {
+                  config.servers.kibana.password)
+                  .then(function () {
+                    return self.sleep(2900);
+                  })
+              } else if ((appId !== 'kibana')
+                  && (appId !== 'monitoring')
+                  && (appId !== 'graph')
+                ) {
                 var msg = 'Kibana is not loaded, retrying';
                 self.debug(msg);
                 throw new Error(msg);
@@ -153,7 +159,7 @@ export default class Common {
       var lastUrl = currentUrl;
       return self.try(function () {
         // give the app time to update the URL
-        return self.sleep(501)
+        return self.sleep(2501)
         .then(function () {
           return self.remote.getCurrentUrl();
         })

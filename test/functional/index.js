@@ -32,8 +32,8 @@ define(function (require) {
       'intern/dojo/node!./apps/management',
       'intern/dojo/node!./apps/console',
       'intern/dojo/node!./apps/monitoring',
-      'intern/dojo/node!./apps/security'//,
-      // 'intern/dojo/node!./apps/dashboard'
+      'intern/dojo/node!./apps/security',
+      'intern/dojo/node!./apps/graph'
     ].filter((suite) => {
       if (!requestedApps) return true;
       return requestedApps.reduce((previous, app) => {
