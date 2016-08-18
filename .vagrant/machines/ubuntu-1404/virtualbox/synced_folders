@@ -1,1 +1,0 @@
-{"virtualbox":{"/logstash-build":{"create":true,"guestpath":"/logstash-build","hostpath":"C:/git/logstash/build","disabled":false,"__vagrantfile":true},"/vagrant":{"guestpath":"/vagrant","hostpath":"C:/git/logstash/qa","disabled":false,"__vagrantfile":true}}}
