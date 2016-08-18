@@ -12,7 +12,7 @@ bdd.describe('users app', function describeIndexTests() {
   bdd.before(function () {
     PageObjects.common.debug('users');
     return PageObjects.settings.navigateTo()
-    .then(function () {
+    .then(() => {
       return PageObjects.settings.clickElasticsearchUsers();
     });
   });
@@ -28,7 +28,7 @@ bdd.describe('users app', function describeIndexTests() {
         ''
       ];
       return PageObjects.settings.getElasticsearchUsers()
-      .then(function (actualUsers) {
+      .then((actualUsers) => {
         PageObjects.common.debug(actualUsers);
         expect(actualUsers).to.eql(expectedUsers);
       });
@@ -46,9 +46,9 @@ bdd.describe('users app', function describeIndexTests() {
       ];
       return PageObjects.settings.addUser({username: 'Lee', password: 'LeePwd',
         confirmPassword: 'LeePwd', fullname: 'LeeFirst LeeLast', email: 'lee@myEmail.com', save: false})
-      .then(function () {
+        .then(() => {
         return PageObjects.settings.getElasticsearchUsers()
-        .then(function (actualUsers) {
+        .then((actualUsers) => {
           PageObjects.common.debug(actualUsers);
           expect(actualUsers).to.eql(expectedUsers);
         });
@@ -67,9 +67,10 @@ bdd.describe('users app', function describeIndexTests() {
         confirmPassword: 'LeePwd', fullname: 'LeeFirst LeeLast', email: 'lee@myEmail.com', save: true, role: 'kibana_user'})
       .then(function () {
         return PageObjects.settings.getElasticsearchUsers()
-        .then(function (actualUsers) {
+        .then((actualUsers) => {
           PageObjects.common.debug(actualUsers);
           expect(actualUsers).to.eql(expectedUsers);
+            PageObjects.common.saveScreenshot('Security Users');
         });
       });
     });
@@ -82,9 +83,9 @@ bdd.describe('users app', function describeIndexTests() {
         ''
       ];
       return PageObjects.settings.deleteUser('Lee')
-      .then(function () {
+      .then(() => {
         return PageObjects.settings.getElasticsearchUsers()
-        .then(function (actualUsers) {
+        .then((actualUsers) => {
           PageObjects.common.debug(actualUsers);
           expect(actualUsers).to.eql(expectedUsers);
         });

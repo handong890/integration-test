@@ -12,11 +12,11 @@ fi
 java_version=$(java -version 2>&1 | grep version | sed 's|.* version "\(.*\..*\)\..*_.*"|\1|')
 ubuntu_version=$(grep VERSION_ID /etc/*-release)
 if [[ $java_version < 1.8 ]]; then
-  echo "Install Java 8"
-  sudo add-apt-repository -y ppa:webupd8team/java
-  sudo apt-get -qq update
-  echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo /usr/bin/debconf-set-selections
-  sudo apt-get -qq install -y oracle-java8-installer
+  echo "Install Java 8, please wait"
+  sudo add-apt-repository -y ppa:webupd8team/java > /dev/null
+  sudo apt-get -qq update > /dev/null
+  echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo /usr/bin/debconf-set-selections > /dev/null
+  sudo apt-get -qq install -y oracle-java8-installer > /dev/null
 fi
 
 java_version=$(java -version 2>&1 | grep version | sed 's|.* version "\(.*\..*\)\..*_.*"|\1|')
@@ -24,6 +24,9 @@ echo "Java version = $java_version"
 if [[ $java_version < 1.8 ]]; then
   exit 1
 fi
+
+echo "-- install libfontconfig libfreetype6 so Reporting can work on a headless server"
+sudo apt-get -qq install -y  libfontconfig libfreetype6
 
 . ./setenv.sh
 
@@ -53,7 +56,7 @@ echo "-- Configure beats authenication"
 
 echo "-- Install Elasticsearch X-Pack"
 ls x-pack-${VERSION}${SNAPSHOT}.zip || wget -q http://${BASEURL}/download/elasticsearch/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
-time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip
+time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip  > /dev/null
 
 echo "-- Install Kibana UI Plugins"
 time sudo /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
@@ -91,7 +94,7 @@ echo "-- Wait for Elasticsearch and Kibana to be ready"
 ./check.sh
 
 echo "-- Create a Kibana user (iron man)"
-./create_kibana_user.sh
+./create_kibana_user.sh >/dev/null
 
 echo "-- Load Beats index patterns, saves searches, visualizations, and dashboards"
 pushd /usr/share/filebeat/kibana/

@@ -72,6 +72,20 @@ export default class DiscoverPage {
     .click();
   }
 
+
+  clickReporting() {
+    return this.remote.setFindTimeout(defaultFindTimeout)
+    .findByCssSelector('button[aria-label="Search Report"]')
+    .click();
+  }
+
+  clickPrintablePdf() {
+    return this.remote.setFindTimeout(defaultFindTimeout)
+    .findByCssSelector('button.generate')
+    .click();
+  }
+
+
   getCurrentQueryName() {
     return this.findTimeout
       .findByCssSelector('span.kibana-nav-info-title span')

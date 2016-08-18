@@ -26,6 +26,10 @@ export default class SettingsPage {
     return this.clickLinkText('Advanced Settings');
   }
 
+  clickKibanaReporting() {
+    return this.clickLinkText('Reporting');
+  }
+
   clickKibanaIndicies() {
     return this.clickLinkText('Index Patterns');
   }
@@ -479,6 +483,46 @@ export default class SettingsPage {
     .then(() => {
       return alertText;
     });
+  }
+
+  getLatestReportingJob() {
+    // note, 'tr' should get is the first data row (not the 'th' header row)
+    // and the most recent job is always on top.
+    var report = {};
+    return this.remote.setFindTimeout(defaultFindTimeout)
+    .findByCssSelector('tr > td:nth-child(1)')
+    .getVisibleText()
+    .then((col1) => {
+      report['queryName'] = col1.split('\n')[0];
+      report['type'] = col1.split('\n')[1];
+    })
+    .then(() => {
+      return this.remote.setFindTimeout(defaultFindTimeout)
+      .findByCssSelector('tr > td:nth-child(2)')
+      .getVisibleText();
+    })
+    .then((col2) => {
+      report['added'] = col2.split('\n')[0];
+      report['username'] = col2.split('\n')[1];
+    })
+    .then(() => {
+      return this.remote.setFindTimeout(defaultFindTimeout)
+      .findByCssSelector('tr > td:nth-child(3)')
+      .getVisibleText();
+    })
+    .then((col3) => {
+      report['status'] = col3.split('\n')[0];
+      report['completed'] = col3.split('\n')[1];
+      return report;
+    })
+  }
+
+  clickDownloadPdf() {
+    // note, 'tr' should get is the first data row (not the 'th' header row)
+    // and the most recent job is always on top.
+    return this.remote.setFindTimeout(defaultFindTimeout)
+    .findByCssSelector('tr > td.actions > button')
+    .click();
   }
 
 }

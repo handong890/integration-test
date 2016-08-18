@@ -115,7 +115,7 @@ export default class HeaderPage {
   }
 
   getToastMessage() {
-    return this.remote.setFindTimeout(defaultFindTimeout)
+    return this.remote.setFindTimeout(defaultFindTimeout * 2)
     .findDisplayedByCssSelector('kbn-truncated.toast-message.ng-isolate-scope')
     .getVisibleText();
   }
