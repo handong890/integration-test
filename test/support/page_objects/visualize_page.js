@@ -381,6 +381,9 @@ export default class VisualizePage {
     })
     .then(function clickDashboardByLinkedText() {
       return self.clickVisualizationByLinkText(vizName);
+    })
+    .then(() => {
+      return PageObjects.header.getSpinnerDone();
     });
   }
 
@@ -495,7 +498,7 @@ export default class VisualizePage {
       .findByCssSelector('div.y-axis-div-wrapper > div > svg > g > g:last-of-type')
       .getVisibleText()
       .then(function (yLabel) {
-        yAxisLabel = yLabel.replace(',', '');
+        yAxisLabel = yLabel.replace(',', '').replace('%','');
         PageObjects.common.debug('yAxisLabel = ' + yAxisLabel);
         return yLabel;
       })
@@ -507,7 +510,7 @@ export default class VisualizePage {
         .getAttribute('height')
         .then(function (theHeight) {
           yAxisHeight = theHeight - 5; // MAGIC NUMBER - clipPath extends a bit above the top of the y-axis and below x-axis
-          PageObjects.common.debug('theHeight = ' + theHeight);
+          PageObjects.common.debug('chartHeight = ' + theHeight);
           return theHeight;
         });
       })
@@ -515,18 +518,13 @@ export default class VisualizePage {
       .then(function getChartWrapper() {
         return self
         .setFindTimeout(defaultFindTimeout * 2)
-        .findAllByCssSelector('.chart-wrapper')
+        .findAllByCssSelector('circle[' + cssPart + ']')
         .then(function (chartTypes) {
 
           // 5). for each chart element, find the green circle, then the cy position
-          function getChartType(chart) {
-            return chart
-            .findByCssSelector('circle[fill="#6eadc1"]')
-            .then(function (circleObject) {
-              // PageObjects.common.debug('circleObject = ' + circleObject + ' yAxisHeight= ' + yAxisHeight + ' yAxisLabel= ' + yAxisLabel);
-              return circleObject
-              .getAttribute('cy');
-            })
+          function getChartType(circleObject) {
+            return circleObject
+            .getAttribute('cy')
             .then(function (cy) {
               // PageObjects.common.debug(' yAxisHeight=' + yAxisHeight + ' yAxisLabel=' + yAxisLabel + '  cy=' + cy +
               //   ' ((yAxisHeight - cy)/yAxisHeight * yAxisLabel)=' + ((yAxisHeight - cy) / yAxisHeight * yAxisLabel));
