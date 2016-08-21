@@ -13,10 +13,10 @@ java_version=$(java -version 2>&1 | grep version | sed 's|.* version "\(.*\..*\)
 ubuntu_version=$(grep VERSION_ID /etc/*-release)
 if [[ $java_version < 1.8 ]]; then
   echo "Install Java 8, please wait"
-  sudo add-apt-repository -y ppa:webupd8team/java > /dev/null
-  sudo apt-get -qq update > /dev/null
-  echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo /usr/bin/debconf-set-selections > /dev/null
-  sudo apt-get -qq install -y oracle-java8-installer > /dev/null
+  sudo add-apt-repository -y ppa:webupd8team/java &> /dev/null
+  sudo apt-get -qq update &> /dev/null
+  echo "oracle-java8-installer shared/accepted-oracle-license-v1-1 select true" | sudo /usr/bin/debconf-set-selections &> /dev/null
+  sudo apt-get -qq install -y oracle-java8-installer &> /dev/null
 fi
 
 java_version=$(java -version 2>&1 | grep version | sed 's|.* version "\(.*\..*\)\..*_.*"|\1|')
@@ -31,20 +31,27 @@ sudo apt-get -qq install -y  libfontconfig libfreetype6
 . ./setenv.sh
 
 VERSION=5.0.0-alpha5
+HASH=
 SNAPSHOT=-SNAPSHOT
 BASEURL=snapshots.elastic.co
+
+#VERSION=5.0.0-alpha6
+#HASH=b2c88dcc
+#SNAPSHOT=
+#BASEURL=staging.elastic.co/${VERSION}-${HASH}
+
 PACKAGE=deb
 PLATFORM=-amd64
 #./cleanup.sh
 
 echo "-- Get the packages"
-ls packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget -q http://${BASEURL}/download/beats/packetbeat/packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
-ls filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}   || wget -q http://${BASEURL}/download/beats/filebeat/filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
-ls metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget -q http://${BASEURL}/download/beats/metricbeat/metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
-ls kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}     || wget -q http://${BASEURL}/download/kibana/kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}
+ls packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget -q http://${BASEURL}/download/beats/packetbeat/packetbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || exit 1
+ls filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}   || wget -q http://${BASEURL}/download/beats/filebeat/filebeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || exit 1
+ls metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || wget -q http://${BASEURL}/download/beats/metricbeat/metricbeat-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || exit 1
+ls kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE}     || wget -q http://${BASEURL}/download/kibana/kibana-${VERSION}${SNAPSHOT}${PLATFORM}.${PACKAGE} || exit 1
 
-ls logstash-${VERSION}${SNAPSHOT}.${PACKAGE}      || wget -q http://${BASEURL}/download/logstash/logstash-${VERSION}${SNAPSHOT}.${PACKAGE}
-ls elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} || wget -q http://${BASEURL}/download/elasticsearch/elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE}
+ls logstash-${VERSION}${SNAPSHOT}.${PACKAGE}      || wget -q http://${BASEURL}/download/logstash/logstash-${VERSION}${SNAPSHOT}.${PACKAGE} || exit 1
+ls elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} || wget -q http://${BASEURL}/download/elasticsearch/elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} || exit 1
 
 echo "-- Install packages"
 ./install_packages.sh || exit 1
@@ -54,12 +61,18 @@ echo "-- Install packages"
 echo "-- Configure beats authenication"
 ./configure_beats.sh || exit 1
 
-echo "-- Install Elasticsearch X-Pack"
+#echo "-- Install Elasticsearch X-Pack"
 ls x-pack-${VERSION}${SNAPSHOT}.zip || wget -q http://${BASEURL}/download/elasticsearch/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
-time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip  > /dev/null
+if [ .$HASH. == .. ]; then
+  time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip  > /dev/null
+else
+  echo "Staging install using ES_JAVA_OPTS=\"-Des.plugins.staging=$HASH\""
+  ES_JAVA_OPTS="-Des.plugins.staging=$HASH" sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip  > /dev/null
+  #https://artifacts.elastic.co/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
+fi
 
-echo "-- Install Kibana UI Plugins"
-time sudo /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
+echo "-- Install Kibana UI Plugins https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip"
+time sudo /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip | grep -v "^\.$"
 
 echo "-- Configure Shield users/roles for Kibana"
 #/usr/share/elasticsearch/bin/x-pack/users useradd $KIBANAFILEUSER -r kibanaUser -p $KIBANAFILEPWD || exit 1
@@ -67,7 +80,7 @@ echo "-- Configure Shield users/roles for Kibana"
 /usr/share/elasticsearch/bin/x-pack/users useradd $LOGSTASHUSER -r logstash -p $LOGSTASHPWD || exit 1
 
 echo "-- let logstash process read syslog"
-#sudo setfacl -m u:logstash:r /var/log/syslog || exit 1 (not mounted with acls)
+#sudo setfacl -m u:logstash:r /var/log/syslog || exit 1 (this VM is not mounted with acls)
 sudo chmod o+r /var/log/syslog
 sudo cp logstash.conf /etc/logstash/conf.d/ || exit 1
 

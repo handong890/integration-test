@@ -47,6 +47,9 @@ bdd.describe('monitoring app', function describeIndexTests() {
 
     bdd.it('should show Kibana status Green', function () {
       return PageObjects.monitoring.getKibanaSmallPanelStatus()
+      .then(() => {
+        PageObjects.common.saveScreenshot('Monitoring');
+      })
       .then(function (actualQueryNameString) {
         expect(actualQueryNameString).to.be('status status-green');
       });

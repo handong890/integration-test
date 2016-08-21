@@ -28,6 +28,9 @@ bdd.describe('creating a simple graph', function describeGraphTests() {
       return PageObjects.common.sleep(6000);
     })
     .then(() => {
+      PageObjects.common.saveScreenshot('Graph');
+    })
+    .then(() => {
       return PageObjects.graph.getGraphCircleText();
     })
     .then((circles) => {

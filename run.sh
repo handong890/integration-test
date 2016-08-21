@@ -1,6 +1,5 @@
 #!/bin/bash
-
-# rm qa/*.deb
+rm qa/*.deb
 
 echo "--- Start npm install in the background while the VM comes up"
 time npm install &
