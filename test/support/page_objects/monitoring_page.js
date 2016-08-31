@@ -39,8 +39,8 @@ export default class MonitoringPage {
 
   getKibanaSmallPanelStatus() {
     return this.findTimeout
-    .findDisplayedByCssSelector('#kibana-body > div > div > div > div.application.ng-scope.tab-overview > div > monitoring-main > div > div > monitoring-cluster-overview > div > div:nth-child(2) > div > div > div.statusContainer > span.status')
-    //.getVisibleText();
+    .findDisplayedByCssSelector('span.status[data-reactid=".0.1.0.1.0.0"]')
+    //.getVisibleText();         #kibana-body > div > div > div > div.application.ng-scope.tab-overview > div > monitoring-main > div > div > monitoring-cluster-overview > div > div:nth-child(2) > div > div > div.statusContainer > span.status.status-green
     .getAttribute('class');
   }
 

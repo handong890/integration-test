@@ -15,19 +15,43 @@ apt-add-repository ppa:webupd8team/java
 apt-get update
 apt-get install oracle-java8-installer
 
-
+################################################ THIS IS NOT THE SCRIPT THAT RUNS!!!!!!!!!!!!
 . ./setenv.sh
 
-VERSION=5.0.0-alpha5
-SNAPSHOT=-SNAPSHOT
-BASEURL=snapshots.elastic.co
+#VERSION=5.0.0-alpha5
+#SNAPSHOT=-SNAPSHOT
+#BASEURL=snapshots.elastic.co
+#PACKAGE=deb
+
+VERSION=5.0.0-alpha6
+HASH=-b2c88dcc
+SNAPSHOT=
+BASEURL=staging.elastic.co/${VERSION}${HASH}
 PACKAGE=deb
+ARCH=-amd64
 
 #./cleanup.sh
 
-echo Download latest packages - see https://github.com/elastic/dev/issues/665
+#http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch/elasticsearch-5.0.0-alpha6.deb
 
-for PRODUCT in $PRODUCTS; do wget http://${BASEURL}/download/${PRODUCT}/${PRODUCT}-${VERSION}${SNAPSHOT}.${PACKAGE}
+echo Download latest packages - see https://github.com/elastic/dev/issues/665
+#for PRODUCT in $PRODUCTS; do wget http://${BASEURL}/download/${PRODUCT}/${PRODUCT}-${VERSION}${SNAPSHOT}.${PACKAGE}
+ls elasticsearch*.${PACKAGE} || wget http://${BASEURL}/download/elasticsearch/elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} || exit
+
+#http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/logstash/logstash-5.0.0-alpha6.deb
+ls logstash*.${PACKAGE} || wget http://${BASEURL}/download/logstash/logstash-${VERSION}${SNAPSHOT}.${PACKAGE} || exit
+
+
+#http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/kibana/kibana-5.0.0-alpha6-amd64.deb
+ls kibana*.${PACKAGE} || wget http://${BASEURL}/download/kibana/kibana-${VERSION}${SNAPSHOT}${ARCH}.${PACKAGE} || exit
+
+
+#http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/beats/filebeat/filebeat-5.0.0-alpha6-amd64.deb
+ls filebeat*.${PACKAGE} || wget http://${BASEURL}/download/beats/filebeat-${VERSION}${SNAPSHOT}${ARCH}.${PACKAGE} || exit
+ls packetbeat*.${PACKAGE} || wget http://${BASEURL}/download/beats/packetbeat-${VERSION}${SNAPSHOT}${ARCH}.${PACKAGE} || exit
+ls metricbeat*.${PACKAGE} || wget http://${BASEURL}/download/beats/metricbeat-${VERSION}${SNAPSHOT}${ARCH}.${PACKAGE} || exit
+
+
 
 ./install_packages.sh || exit 1
 
@@ -37,31 +61,21 @@ echo Configure beats authenication
 ./configure_beats.sh || exit 1
 
 echo Install Elasticsearch X-Pack
+#http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch/plugins/x-pack/x-pack-5.0.0-alpha6.zip
 /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${BASEURL}/download/elasticsearch/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
 
 echo Install Kibana UI Plugins
 #time /usr/share/kibana/bin/kibana-plugin install timelion || exit 1
-#/usr/share/kibana/bin/kibana-plugin install x-pack         http://staging.elastic.co/5.0.0-alpha5-3ae231c8/download/kibana/plugins/x-pack/x-pack-5.0.0-alpha5.zip
+#/usr/share/kibana/bin/kibana-plugin install x-pack 
+#http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/kibana/plugins/x-pack/x-pack-5.0.0-alpha6.zip
 time /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
 
-# fix an issue in kibana if you install plugins as root before you've started kibana the first time
-# https://github.com/elastic/kibana/issues/6730
-#chown kibana:kibana /usr/share/kibana/optimize/.babelcache.json || exit 1
-# https://github.com/elastic/x-plugins/issues/2201
-#chown -R kibana:kibana /usr/share/kibana/node_modules || exit 1
-#chown -R kibana:kibana /usr/share/kibana/installedPlugins || exit 1
-
-# Create kibana user role
-#cat kibanaRole.txt >> /etc/elasticsearch/x-pack/roles.yml || exit 1
 
 
-
-echo "-- Configure Shield users/roles for Kibana"
-#/usr/share/elasticsearch/bin/x-pack/users useradd $KIBANAFILEUSER -r kibanaUser -p $KIBANAFILEPWD || exit 1
 # create user for logstash to connect to Elasticsearch (used in logstash.conf
 /usr/share/elasticsearch/bin/x-pack/users useradd $LOGSTASHUSER -r logstash -p $LOGSTASHPWD || exit 1
 # let logstash process read syslog
-setfacl -m u:logstash:r /var/log/syslog || exit 1
+#setfacl -m u:logstash:r /var/log/syslog || exit 1
 cp logstash.conf /etc/logstash/conf.d/ || exit 1
 
 # curl put watcher config

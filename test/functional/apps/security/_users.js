@@ -11,6 +11,7 @@ bdd.describe('users app', function describeIndexTests() {
 
   bdd.before(function () {
     PageObjects.common.debug('users');
+    this.remote.setWindowSize(1200,800);
     return PageObjects.settings.navigateTo()
     .then(() => {
       return PageObjects.settings.clickElasticsearchUsers();
@@ -18,7 +19,7 @@ bdd.describe('users app', function describeIndexTests() {
   });
 
 
-  bdd.describe('default users', function () {
+  bdd.describe('users', function () {
 
     bdd.it('should show the default elastic and kibana users', function () {
       var expectedUsers = [ 'Full Name Username Roles',

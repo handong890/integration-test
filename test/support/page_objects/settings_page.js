@@ -69,6 +69,9 @@ export default class SettingsPage {
     // {username: 'Lee', password: 'LeePwd', confirmPassword, fullname: 'LeeFirst LeeLast', email: 'lee@myEmail.com'}
     return this.clickLinkText('New User')
     .then(function () {
+      return PageObjects.common.sleep(4000);
+    })
+    .then(function () {
       return self.remote.setFindTimeout(defaultFindTimeout).findById('username')
       .type(userObj.username);
     })

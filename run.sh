@@ -1,11 +1,12 @@
 #!/bin/bash
 rm qa/*.deb
+rm qa/x-pack*.zip
 
 echo "--- Start npm install in the background while the VM comes up"
 time npm install &
 
-time vagrant destroy -f || exit
-time vagrant up || exit
+time vagrant destroy -f || exit 1
+time vagrant up || exit 1
 
 # this wait makes sure the npm install finished
 wait

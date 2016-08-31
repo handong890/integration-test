@@ -43,5 +43,8 @@ echo -e "\n---------------------------------------------------------------------
 echo -e "\n-----------------Shield File Users-----------------------------------------"
 /usr/share/elasticsearch/bin/x-pack/users list
 echo -e "\n-----------------Shield Native Users-----------------------------------------"
-curl -s -XGET http://$ELASTICUSER:$ELASTICPWD@127.0.0.1:9200/_xpack/security/user?pretty
-curl -s -XGET http://$ELASTICUSER:$ELASTICPWD@127.0.0.1:9200/_xpack/security/role?pretty
+curl -s -XGET http://$ELASTICUSER:$ELASTICPWD@127.0.0.1:9200/_xpack/security/user?pretty | grep username
+echo -e "\n-----------------Shield Native Roles-----------------------------------------"
+curl -s -XGET http://$ELASTICUSER:$ELASTICPWD@127.0.0.1:9200/_xpack/security/role?pretty | grep ".*\".*{" | grep -v metadata | sed 's/: {//'
+
+curl -s http://elastic:changeme@localhost:9200/_cat/indices
