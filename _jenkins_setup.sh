@@ -43,3 +43,5 @@ time vagrant destroy -f || exit 1
 time vagrant up || exit 1
 
 time xvfb-run npm run test:ui:runner
+
+trap 'vagrant halt' EXIT
