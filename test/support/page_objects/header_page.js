@@ -127,7 +127,8 @@ export default class HeaderPage {
 
   clickToastOK() {
     return this.remote.setFindTimeout(defaultFindTimeout)
-    .findByCssSelector('button[ng-if="notif.accept"]')
+    // .findByCssSelector('button[ng-if="notif.accept"]')
+    .findByCssSelector('button.btn-primary')
     .click();
   }
 

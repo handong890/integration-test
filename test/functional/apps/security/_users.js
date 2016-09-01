@@ -11,7 +11,7 @@ bdd.describe('users app', function describeIndexTests() {
 
   bdd.before(function () {
     PageObjects.common.debug('users');
-    this.remote.setWindowSize(1200,800);
+    this.remote.setWindowSize(1400,800);
     return PageObjects.settings.navigateTo()
     .then(() => {
       return PageObjects.settings.clickElasticsearchUsers();
