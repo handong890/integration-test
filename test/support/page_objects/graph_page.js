@@ -27,14 +27,20 @@ export default class GraphPage {
     });
   }
 
+  clickAddField() {
+    return this.findTimeout
+    .findById('addVertexFieldButton')
+    .click()
+  }
+
   selectField(field) {
     return this.findTimeout
-    .findDisplayedByCssSelector('div[id="navbarSearchForm1"] > select')
+    .findDisplayedByCssSelector('select[id="fieldList"] > option[label="' + field + '"]')
     .click()
     .then(() => {
       return this.findTimeout
-      .findByCssSelector('div[id="navbarSearchForm1"] > select > option[label="' + field + '"]')
-      .click();
+      .findDisplayedByCssSelector('button[ng-click="addFieldToSelection()"]')
+      .click()
     })
     .then(() => {
       return PageObjects.header.getSpinnerDone();

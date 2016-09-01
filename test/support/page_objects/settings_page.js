@@ -209,7 +209,14 @@ export default class SettingsPage {
 
   getIndexPatternField() {
     return this.remote.setFindTimeout(defaultFindTimeout)
-    .findByCssSelector('[ng-model="index.name"]');
+    .findByCssSelector('input[ng-model="index.name"]');
+  }
+
+  setIndexPatternField(pattern) {
+    return this.remote.setFindTimeout(defaultFindTimeout)
+    .findByCssSelector('input[ng-model="index.name"]')
+    .clearValue()
+    .type(pattern);
   }
 
   getTimeFieldNameField() {
@@ -419,18 +426,38 @@ export default class SettingsPage {
     });
   }
 
-  createIndexPattern() {
-    return PageObjects.common.try(() => {
-      return this.navigateTo()
-        .then(() => {
-          return this.clickExistingData();
-        })
-        .then(() => {
-          return this.selectTimeFieldOption('@timestamp');
-        })
-        .then(() => {
-          return this.getCreateButton().click();
-        });
+  createIndexPattern(indexPatternName = 'logstash-*') {
+    // if there isn't any existing index patterns, when you go to
+    // clickExistingData you will be on the "Configure an index pattern" screen
+    // with logstash-* as the default.
+    // But if there is an existing index pattern we have to click the "Add New" button
+    // so let's check if it's there and try to click it first.
+    return this.navigateTo()
+    .then(() => {
+      return this.clickExistingData();
+    })
+    .then(() => {
+      return this.clickOptionalAddNewButton();
+    })
+    .then(() => {
+      return this.setIndexPatternField(indexPatternName);
+    })
+    .then(() => {
+      return this.selectTimeFieldOption('@timestamp');
+    })
+    .then(() => {
+      PageObjects.common.log('click Create button now');
+      return this.getCreateButton().click();
+    })
+    .then(function () {
+      return PageObjects.common.sleep(1000);
+    })
+    .then(() => {
+      return this.remote.acceptAlert();
+    })
+    .catch (() => {
+      // we might be overwriting this index pattern, but that's OK
+      return PageObjects.common.log('Overwriting existing [' + indexPatternName + '] pattern');
     })
     .then(() => {
       return PageObjects.header.getSpinnerDone();
@@ -448,6 +475,15 @@ export default class SettingsPage {
             }
           });
       });
+    });
+  }
+
+  clickOptionalAddNewButton() {
+    return this.remote.setFindTimeout(3000)
+    .findDisplayedByLinkText('Add New')
+    .click()
+    .catch(() => {
+      PageObjects.common.log('didn\'t find Add New button, must be first index pattern');
     });
   }
 
