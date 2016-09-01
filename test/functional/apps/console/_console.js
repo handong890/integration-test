@@ -37,8 +37,8 @@ bdd.describe('console app', function describeIndexTests() {
     });
   });
 
-  bdd.it('default request response should contain .kibana' , function () {
-    var expectedResponseContains = '"_index": ".kibana",';
+  bdd.it('default request response should contain   failed: 0' , function () {
+    var expectedResponseContains = '"failed": 0';
     return PageObjects.console.clickPlay()
     .then(function () {
       PageObjects.common.saveScreenshot('Console-default-request');
