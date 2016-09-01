@@ -16,7 +16,7 @@ define(function (require) {
     excludeInstrumentation: /.*/,
 
     defaultTimeout: 90000,
-    defaultTryTimeout: 40000, // tryForTime could include multiple 'find timeouts'
+    defaultTryTimeout: 20000, // tryForTime could include multiple 'find timeouts'
     defaultFindTimeout: 10000  // this is how long we try to find elements on page
   }, serverConfig);
 });
