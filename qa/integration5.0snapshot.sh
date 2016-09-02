@@ -159,5 +159,7 @@ echo "-- `date` Create a Kibana user (iron man)"
 
 echo "-- `date` Load Beats index patterns, saves searches, visualizations, and dashboards"
 pushd /usr/share/filebeat/scripts/
-./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/beats/dashboards/beats-dashboards-${VERSION}.zip
+./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip -beat filebeat
+./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip -beat metricbeat
+./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip -beat packetbeat
 popd

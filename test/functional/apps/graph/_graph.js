@@ -11,10 +11,10 @@ import PageObjects from '../../../support/page_objects';
 
 bdd.describe('creating a simple graph', function describeGraphTests() {
   bdd.before(function () {
-    return PageObjects.settings.createIndexPattern('packetbeat-*')
-    .then(() => {
-      return PageObjects.common.navigateToApp('graph');
-    });
+    // return PageObjects.settings.createIndexPattern('packetbeat-*')
+    // .then(() => {
+    return PageObjects.common.navigateToApp('graph');
+    // });
   });
 
   bdd.it('should show data circles', function () {

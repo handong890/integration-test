@@ -12,8 +12,14 @@ export default class MonitoringPage {
 
   getWelcome() {
     return this.findTimeout
-    .findDisplayedByCssSelector('.banner')
+    .findDisplayedByCssSelector('render-directive')
     .getVisibleText();
+  }
+
+  dismissWelcome() {
+    return this.findTimeout
+    .findDisplayedByCssSelector('button.btn-banner')
+    .click();
   }
 
   // need better test selectors for Monitoring
