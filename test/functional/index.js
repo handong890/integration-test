@@ -37,7 +37,8 @@ define(function (require) {
       'intern/dojo/node!./apps/metricbeat',
       'intern/dojo/node!./apps/filebeat',
       'intern/dojo/node!./apps/packetbeat',
-      'intern/dojo/node!./apps/reporting'
+      'intern/dojo/node!./apps/reporting',
+      'intern/dojo/node!./apps/watcher'
     ].filter((suite) => {
       if (!requestedApps) return true;
       return requestedApps.reduce((previous, app) => {

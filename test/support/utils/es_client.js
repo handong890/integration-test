@@ -129,7 +129,62 @@ export default (function () {
       .catch(function (err) {
         throw err;
       });
-    }
+    },
+
+
+    /**
+    *
+    * @return {Promise} A promise that is resolved when elasticsearch has a response
+    */
+    index: function (index, type, id, jsonInput) {
+
+      Log.debug('\n\nthis.client.index(' + index + '/' + type + '/' + id + ')');
+      Log.debug('\n\nJSON = ' + JSON.stringify(jsonInput) + '\n\n');
+      return this.client.index({
+        index: index,
+        type: type,
+        id: id,
+        body: JSON.stringify(jsonInput)
+      })
+      .then(function (response) {
+        if (response.errors) {
+          throw new Error(
+            'index failed\n' +
+              response.items
+              .map(i => i[Object.keys(i)[0]].error)
+              .filter(Boolean)
+              .map(err => '  ' + JSON.stringify(err))
+              .join('\n')
+          );
+        } else {
+          return response;
+        }
+      });
+    },
+
+    get: function (index, type, id) {
+
+      return this.client.get({
+        index: index,
+        type: type,
+        id: id
+      })
+      .then(function (response) {
+        if (response.errors) {
+          throw new Error(
+            'get config failed\n' +
+              response.items
+              .map(i => i[Object.keys(i)[0]].error)
+              .filter(Boolean)
+              .map(err => '  ' + JSON.stringify(err))
+              .join('\n')
+          );
+        } else {
+          return response;
+        }
+      });
+    },
+
 
   };
 
