@@ -5,8 +5,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
 
   config.vm.box = "elastic/ubuntu-14.04-x86_64"
 
-  config.vm.network :forwarded_port, guest:5601, host:5620
-  config.vm.network :forwarded_port, guest:9200, host:9220
+  config.vm.network :forwarded_port, guest:5601, host:5601
+  config.vm.network :forwarded_port, guest:9200, host:9200
 
    config.vm.provision "shell", path: "qa/integration5.0snapshot.sh"
 
