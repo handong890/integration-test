@@ -41,6 +41,7 @@ bdd.describe('monitoring app', function describeIndexTests() {
     bdd.it('should show Nodes: 1', function () {
       return PageObjects.monitoring.getElasticsearchSmallPanelNodeCount()
       .then(function (actualQueryNameString) {
+        PageObjects.common.saveScreenshot('Monitoring');
         expect(actualQueryNameString).to.be('1');
       });
     });

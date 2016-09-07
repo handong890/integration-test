@@ -25,7 +25,7 @@ bdd.describe('check filebeat', function describeGraphTests() {
     })
     .then((pieData) => {
       PageObjects.common.debug('pieData.length = ' + pieData.length);
-      PageObjects.common.saveScreenshot('Disk space distribution');
+      PageObjects.common.saveScreenshot('Disk_space_distribution');
       expect(pieData.length > 2).to.be(true);
     });
   });

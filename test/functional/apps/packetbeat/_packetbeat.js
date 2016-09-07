@@ -24,7 +24,7 @@ bdd.describe('check packetbeat', function describeGraphTests() {
       return PageObjects.visualize.getLineChartData('data-label="In Bytes"');
     })
     .then(function showData(data) {
-      PageObjects.common.saveScreenshot('In vs Out Network Bytes');
+      PageObjects.common.saveScreenshot('In_vs_Out_Network_Bytes');
       PageObjects.common.debug('Found ' + data.length + ' data points for "In Bytes"');
       expect(data.length > 2).to.be(true);
     });

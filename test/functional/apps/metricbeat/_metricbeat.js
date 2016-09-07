@@ -24,7 +24,7 @@ bdd.describe('check metricbeat', function describeGraphTests() {
       return PageObjects.visualize.getLineChartData('data-label="CPU user space"');
     })
     .then(function showData(data) {
-      PageObjects.common.saveScreenshot('CPU usage over time');
+      PageObjects.common.saveScreenshot('CPU_usage_over_time');
       PageObjects.common.debug('Found ' + data.length + ' data points for CPU user space');
       expect(data.length > 2).to.be(true);
     });

@@ -71,7 +71,7 @@ bdd.describe('users app', function describeIndexTests() {
         .then((actualUsers) => {
           PageObjects.common.debug(actualUsers);
           expect(actualUsers).to.eql(expectedUsers);
-            PageObjects.common.saveScreenshot('Security Users');
+            PageObjects.common.saveScreenshot('Security_Users');
         });
       });
     });
