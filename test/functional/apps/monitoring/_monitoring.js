@@ -9,6 +9,7 @@ import PageObjects from '../../../support/page_objects';
 
 bdd.describe('monitoring app', function describeIndexTests() {
   bdd.before(function () {
+    PageObjects.remote.setWindowSize(1200,800);
     PageObjects.common.debug('monitoring');
     return PageObjects.common.navigateToApp('monitoring');
   });

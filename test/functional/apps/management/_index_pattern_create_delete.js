@@ -11,6 +11,7 @@ import PageObjects from '../../../support/page_objects';
 
 bdd.describe('creating and deleting default index', function describeIndexTests() {
   bdd.before(function () {
+    PageObjects.remote.setWindowSize(1200,800);
     return PageObjects.settings.navigateTo()
     .then(function () {
       return PageObjects.settings.clickExistingData();
