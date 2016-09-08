@@ -18,7 +18,7 @@ dpkg --list $PRODUCTS
 echo -e "\n `date`-----------------Service Status---------------------------------------"
 for i in $PRODUCTS; do service $i status; done
 
-if [ -f index.html]; then rm index.html*; fi
+if [ -f index.html ]; then rm index.html*; fi
 # try 20 times, 4 seconds apart
 echo -e "\n `date`------------wait for Elasticserach to be up----------------------------------------"
 for i in `seq 1 20`; do echo "wget es index" && sleep 4 && wget -q --http-user=$ELASTICUSER --http-password=$ELASTICPWD http://localhost:9200 && break; done
@@ -34,6 +34,7 @@ if ! grep '"plugin:elasticsearch@.*","info"],"pid":.*,"state":"green"' /var/log/
     exit 1
   )
 fi
+if [[ $? > 0 ]]; then exit 1; fi
 
 echo -e "\n `date`----------- Wait for kibana plugin status to be green ----------------"
 for i in `seq 1 30`; do echo "${i} `date` grep kibana log for 'green'" && sleep 4 && grep '"plugin:kibana@.*","info"],"pid":.*,"state":"green"' /var/log/kibana/kibana.stdout && break; done
@@ -46,6 +47,7 @@ if ! grep '"plugin:elasticsearch@.*","info"],"pid":.*,"state":"green"' /var/log/
     exit 1
   )
 fi
+if [[ $? > 0 ]]; then exit 1; fi
 
 
 echo -e "\n `date`----------- Status of each kibana plugin ------------------------"

@@ -115,8 +115,8 @@ if /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep x-pack
         #wget http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
         #                             bin/elasticsearch-plugin install https://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
         #  ES_JAVA_OPTS="-Des.plugins.staging=$HASH" sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip  > /dev/null
-        sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip || exit 1
-        #  sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip || exit 1
+        # sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip || exit 1
+        sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip || exit 1
         #https://artifacts.elastic.co/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
     fi
   )
@@ -127,9 +127,8 @@ if /usr/share/kibana/bin/kibana-plugin list | grep x-pack
   then echo "-- `date` Kibana x-pack is already installed"
   else (
     echo "-- `date` Install Kibana UI Plugins https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip"
-    #wget https://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/kibana-plugins/x-pack/x-pack-5.0.0-alpha6.zip
     time sudo /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
-    )
+  )
 fi
 
 #echo "-- Configure Shield users/roles for Kibana"
@@ -166,7 +165,8 @@ echo "-- `date` Start services"
 ping -c 100 www.google.com >/dev/null &
 
 echo "-- `date` Wait for Elasticsearch and Kibana to be ready"
-./check.sh
+./check.sh || exit 1
+echo $?
 
 echo "-- `date` Create a Kibana user (iron man)"
 ./create_kibana_user.sh >/dev/null
