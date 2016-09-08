@@ -1,6 +1,7 @@
 #!/bin/bash
-QADIR=/vagrant/qa/
-cd $QADIR
+# cd to the qa/ dir where this script lives
+cd "$( dirname "${BASH_SOURCE[0]}" )"
+QADIR=$PWD
 
 date
 
@@ -95,30 +96,41 @@ echo "-- `date` Install packages"
 
 # Install Platinum License?
 
-echo "-- `date` Configure beats authenication"
+echo "-- `date` Configure beats authentication"
 ./configure_beats.sh || exit 1
 
-echo "-- `date` Install Elasticsearch X-Pack"
-if [ .$HASH. == .. ]; then
-  echo "Getting http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip"
-  if [ ! -f -pack-${VERSION}${SNAPSHOT}.zip ]; then
-    wget -q http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip || exit 1
-    echo "time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip"
-    time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip
-  fi
-else
-  echo "Staging install using ES_JAVA_OPTS=\"-Des.plugins.staging=$HASH\""
-  #wget http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
-  #                             bin/elasticsearch-plugin install https://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
-  #  ES_JAVA_OPTS="-Des.plugins.staging=$HASH" sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip  > /dev/null
-  sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip || exit 1
-  #  sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip || exit 1
-  #https://artifacts.elastic.co/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
+if /usr/share/elasticsearch/bin/elasticsearch-plugin list | grep x-pack
+  then echo "-- `date` Kibana x-pack is already installed"
+  else (
+    echo "-- `date` Install Elasticsearch X-Pack"
+    if [ .$HASH. == .. ]; then
+      echo "Getting http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip"
+      if [ ! -f -pack-${VERSION}${SNAPSHOT}.zip ]; then
+        wget -q http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip || exit 1
+        echo "time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip"
+        time sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip
+      fi
+    else
+        echo "Staging install using ES_JAVA_OPTS=\"-Des.plugins.staging=$HASH\""
+        #wget http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
+        #                             bin/elasticsearch-plugin install https://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
+        #  ES_JAVA_OPTS="-Des.plugins.staging=$HASH" sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b file:///${QADIR}/x-pack-${VERSION}${SNAPSHOT}.zip  > /dev/null
+        sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -s -b http://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip || exit 1
+        #  sudo /usr/share/elasticsearch/bin/elasticsearch-plugin install -b http://${BASEURL}/download/elasticsearch-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip || exit 1
+        #https://artifacts.elastic.co/download/elasticsearch-plugins/x-pack/x-pack-5.0.0-alpha6.zip
+    fi
+  )
 fi
 
-echo "-- `date` Install Kibana UI Plugins https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip"
-#wget https://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/kibana-plugins/x-pack/x-pack-5.0.0-alpha6.zip
-time sudo /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip | grep -v "^\.$"
+
+if /usr/share/kibana/bin/kibana-plugin list | grep x-pack
+  then echo "-- `date` Kibana x-pack is already installed"
+  else (
+    echo "-- `date` Install Kibana UI Plugins https://${BASEURL}/download/kibana/plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip"
+    #wget https://staging.elastic.co/5.0.0-alpha6-b2c88dcc/download/kibana-plugins/x-pack/x-pack-5.0.0-alpha6.zip
+    time sudo /usr/share/kibana/bin/kibana-plugin install https://${BASEURL}/download/kibana-plugins/x-pack/x-pack-${VERSION}${SNAPSHOT}.zip
+    )
+fi
 
 #echo "-- Configure Shield users/roles for Kibana"
 #/usr/share/elasticsearch/bin/x-pack/users useradd $KIBANAFILEUSER -r kibanaUser -p $KIBANAFILEPWD || exit 1
@@ -135,15 +147,17 @@ sudo cp logstash.conf /etc/logstash/conf.d/ || exit 1
 # curl put watcher trigger data?
 
 echo "-- `date` Set network.host for Elasticsearch so we can access it outside the vagrant machine"
-echo "network.host: 0.0.0.0" >> /etc/elasticsearch/elasticsearch.yml
+grep "^network.host: 0.0.0.0" /etc/elasticsearch/elasticsearch.yml || echo "network.host: 0.0.0.0" >> /etc/elasticsearch/elasticsearch.yml
 # Now that we set host, we have to make it more production like
-echo "discovery.zen.minimum_master_nodes: 0" >> /etc/elasticsearch/elasticsearch.yml
+grep "^discovery.zen.minimum_master_nodes: 0" /etc/elasticsearch/elasticsearch.yml || echo "discovery.zen.minimum_master_nodes: 0" >> /etc/elasticsearch/elasticsearch.yml
 
 echo "-- `date` set jvm min heap size"
 sed -i 's/-Xms256m/-Xms2g/' /etc/elasticsearch/jvm.options
 
 echo "-- `date` Set network.host for Kibana so we can access it outside the vagrant machine"
-echo "server.host: 0.0.0.0" >> /etc/kibana/kibana.yml
+grep "^server.host: 0.0.0.0" /etc/kibana/kibana.yml || echo "server.host: 0.0.0.0" >> /etc/kibana/kibana.yml
+echo "-- `date` Add xpack.reporting.encryptionKey to kibana.yml"
+grep "^xpack.reporting.encryptionKey" /etc/kibana/kibana.yml || echo "xpack.reporting.encryptionKey: test" >> /etc/kibana/kibana.yml
 
 echo "-- `date` Start services"
 ./start_services.sh || exit 1
