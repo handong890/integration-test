@@ -157,6 +157,7 @@ echo "-- `date` Set network.host for Kibana so we can access it outside the vagr
 grep "^server.host: 0.0.0.0" /etc/kibana/kibana.yml || echo "server.host: 0.0.0.0" >> /etc/kibana/kibana.yml
 echo "-- `date` Add xpack.reporting.encryptionKey to kibana.yml"
 grep "^xpack.reporting.encryptionKey" /etc/kibana/kibana.yml || echo "xpack.reporting.encryptionKey: test" >> /etc/kibana/kibana.yml
+grep "^xpack.security.encryptionKey" /etc/kibana/kibana.yml || echo "xpack.security.encryptionKey: test" >> /etc/kibana/kibana.yml
 
 echo "-- `date` Start services"
 ./start_services.sh || exit 1
@@ -170,6 +171,13 @@ echo $?
 
 echo "-- `date` Create a Kibana user (iron man)"
 ./create_kibana_user.sh >/dev/null
+
+echo "-- `date` Create Logstash role and user and restart logstash"
+./create_logstash_role_user.sh >/dev/null
+service logstash restart
+sleep 15
+logger testing
+logger "some log messages"
 
 echo "-- `date` Load Beats index patterns, saves searches, visualizations, and dashboards"
 pushd /usr/share/filebeat/scripts/
