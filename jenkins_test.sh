@@ -12,6 +12,8 @@ else
   exit 1
 fi
 
+echo 5.0.0-beta1 > ./qa/version
+
 
 ###*****###
 ### NVM ###

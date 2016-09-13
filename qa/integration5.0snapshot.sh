@@ -46,7 +46,7 @@ sudo apt-get -qq install -y  libfontconfig libfreetype6
 
 . ./setenv.sh
 
-VERSION=5.0.0-alpha6
+VERSION=`cat version`
 SNAPSHOT=-SNAPSHOT
 BASEURL=snapshots.elastic.co
 
@@ -180,8 +180,13 @@ logger testing
 logger "some log messages"
 
 echo "-- `date` Load Beats index patterns, saves searches, visualizations, and dashboards"
-pushd /usr/share/filebeat/scripts/
-./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip -beat filebeat
-./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip -beat metricbeat
-./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip -beat packetbeat
+./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip
+popd
+
+pushd /usr/share/metricbeat/scripts/
+./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip
+popd
+
+pushd /usr/share/packetbeat/scripts/
+./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip
 popd
