@@ -180,6 +180,7 @@ logger testing
 logger "some log messages"
 
 echo "-- `date` Load Beats index patterns, saves searches, visualizations, and dashboards"
+pushd /usr/share/filebeat/scripts/
 ./import_dashboards -user $ELASTICUSER -pass $ELASTICPWD -url http://${BASEURL}/download/beats/beats-dashboards/beats-dashboards-${VERSION}${SNAPSHOT}.zip
 popd
 
