@@ -23,7 +23,7 @@ bdd.describe('users app', function describeIndexTests() {
 
     bdd.it('should show the default elastic and kibana users', function () {
       var expectedUsers = [ 'Full Name Username Roles',
-        'loggy loggy logstash',
+        'logstash_internal logstash_internal logstash_writer',
         'elastic superuser\nReserved',
         'kibana kibana\nReserved',
         'Tony Stark ironman kibanaUser',
@@ -41,7 +41,7 @@ bdd.describe('users app', function describeIndexTests() {
 
     bdd.it('should cancel adding new user', function () {
       var expectedUsers = [ 'Full Name Username Roles',
-        'loggy loggy logstash',
+        'logstash_internal logstash_internal logstash_writer',
         'elastic superuser\nReserved',
         'kibana kibana\nReserved',
         'Tony Stark ironman kibanaUser',
@@ -61,7 +61,7 @@ bdd.describe('users app', function describeIndexTests() {
     bdd.it('should add new user', function () {
       var expectedUsers = [ 'Full Name Username Roles',
         'LeeFirst LeeLast Lee',
-        'loggy loggy logstash',
+        'logstash_internal logstash_internal logstash_writer',
         'elastic superuser\nReserved',
         'kibana kibana\nReserved',
         'Tony Stark ironman kibanaUser',
@@ -81,7 +81,7 @@ bdd.describe('users app', function describeIndexTests() {
 
     bdd.it('should delete user', function () {
       var expectedUsers = [ 'Full Name Username Roles',
-        'loggy loggy logstash',
+        'logstash_internal logstash_internal logstash_writer',
         'elastic superuser\nReserved',
         'kibana kibana\nReserved',
         'Tony Stark ironman kibanaUser',
