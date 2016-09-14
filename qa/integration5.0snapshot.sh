@@ -88,8 +88,17 @@ if [ ! -f elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} ]; then
   wget -q http://${BASEURL}/download/elasticsearch/elasticsearch-${VERSION}${SNAPSHOT}.${PACKAGE} &
 fi
 
+
+#maven/org/elasticsearch/rest-api-spec/6.0.0-alpha1-SNAPSHOT/rest-api-spec-6.0.0-alpha1-SNAPSHOT-sources.jar
+if [ ! -f rest-api-spec-${VERSION}${SNAPSHOT}-sources.jar ]; then
+  echo "wget -q http://${BASEURL}/maven/org/elasticsearch/rest-api-spec/${VERSION}${SNAPSHOT}/rest-api-spec-${VERSION}${SNAPSHOT}-sources.jar"
+  wget -q http://${BASEURL}/maven/org/elasticsearch/rest-api-spec/${VERSION}${SNAPSHOT}/rest-api-spec-${VERSION}${SNAPSHOT}-sources.jar &
+fi
+
 echo "-- `date` Wait for all packages to download"
 wait
+
+unzip rest-api-spec-${VERSION}${SNAPSHOT}-sources.jar
 
 echo "-- `date` Install packages"
 ./install_packages.sh || exit 1

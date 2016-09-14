@@ -2,6 +2,9 @@
 rm qa/*.deb*
 rm qa/*.rpm*
 rm qa/x-pack*.zip*
+rm qa/rest-api-spec*.jar
+rm -rf qa/META-INF
+rm -rf qa/rest-api-spec
 
 echo 5.0.0-beta1 > ./qa/version
 # 5.x branch = 5.0.0-alpha6 - this is what is checked in and working
@@ -19,9 +22,15 @@ time vagrant up || exit 1
 
 # this wait makes sure the npm install finished
 wait
+
+echo " The rest-api-spec has been downloaded and extracted here"
+ls -l qa/rest-api-spec/test
+
 # We can run the UI tests headless, but not on Windows
 if [ .$OS. == .Windows_NT. ]; then
   time npm run test:ui:runner
 else
   time xvfb-run npm run test:ui:runner
 fi
+
+# run the rest-api tests here

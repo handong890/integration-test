@@ -45,4 +45,9 @@ trap 'vagrant halt' EXIT
 time vagrant destroy -f || exit 1
 time vagrant up || exit 1
 
+echo " The rest-api-spec has been downloaded and extracted here"
+ls -l qa/rest-api-spec/test
+
 time xvfb-run npm run test:ui:runner
+
+# run the rest-api tests here
